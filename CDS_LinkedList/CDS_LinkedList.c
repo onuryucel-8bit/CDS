@@ -26,6 +26,23 @@ void CDS_LinkedList_removeFirst(List* list){
     //check first element
     if(list->head == NULL){
 
+        //if head has next element
+        if(list->head->next != NULL){
+            Node* current = list->head->next;
+
+            //free list head
+            free(list->head);
+
+            //make the next node head of list
+            list->head = current;
+
+            return;
+        }
+
+        free(list->head);
+        list->head = NULL;
+
+        return;
     }
 }
 
