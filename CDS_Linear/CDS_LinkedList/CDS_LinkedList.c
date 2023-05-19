@@ -17,8 +17,8 @@ List* CDS_LinkedList_init() {
     return list;
 }
 
-void CDS_LinkedList_addAfterIndex(List* list,void* data,int index){}
-void CDS_LinkedList_addAfterData(){}
+void CDS_LinkedList_addAfterIndex(List* list,void* data,unsigned int index){}
+void CDS_LinkedList_addAfterData(List* list,void* data,void* indexData){}
 
 ///remove first element from list
 void CDS_LinkedList_removeFirst(List* list){
@@ -76,7 +76,7 @@ void CDS_LinkedList_removeLast(List* list){
 
 }
 
-void CDS_LinkedList_removeAfterIndex(){}
+void CDS_LinkedList_removeAfterIndex(List* list,unsigned int index){}
 
 ///Checks if lisf of head empty
 int CDS_LinkedList_isEmpty(List* list){

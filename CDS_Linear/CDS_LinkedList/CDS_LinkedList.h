@@ -24,8 +24,8 @@ List* CDS_LinkedList_init();
 void CDS_LinkedList_addFirst(List* list,void* data);
 void CDS_LinkedList_addLast(List* list,void* data);
 
-void CDS_LinkedList_addAfterIndex(List* list,unsigned int index);
-void CDS_LinkedList_addAfterData(List* list,void* data);
+void CDS_LinkedList_addAfterIndex(List* list,void* data,unsigned int index);
+void CDS_LinkedList_addAfterData(List* list,void* data,void* indexData);
 
 //----------REMOVE-------//
 void CDS_LinkedList_removeFirst(List* list);
