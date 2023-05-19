@@ -47,7 +47,9 @@ void CDS_Queue_LL_enQueue(queueLL* queue,void* data){
 }
 
 void CDS_Queue_LL_deQueue(queueLL* queue,void* data){
-
+    if(queue->top == NULL){
+        return;
+    }
 }
 void CDS_Queue_LL_destroy(queueLL* queue){}
 
