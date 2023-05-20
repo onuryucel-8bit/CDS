@@ -17,8 +17,75 @@ List* CDS_LinkedList_init() {
     return list;
 }
 
+///create node
+static Node* createNode(void* data){
+
+    //memory allocation for node
+    Node* newNode = malloc(sizeof(Node));
+
+    //error check
+    if(!newNode){
+       // perror("Failed to create newNode in CDS_LinkedList");
+        return NULL;
+    }
+
+    //put the data inside of node
+    newNode->data = data;
+    newNode->next = NULL;
+
+    return newNode;
+}
+
+
+//-----------------------------------------------------------//
+//-----------------------------ADD---------------------------//
+//-----------------------------------------------------------//
+
+///adds Element to head of list
+void CDS_LinkedList_addFirst(List* list,void* data){
+
+    //if list empty make the element list of head
+    if(list->head == NULL){
+        list->head = createNode(data);
+        return;
+    }
+
+    //create Nodes
+    Node* newNode = createNode(data);
+
+    //connect new node to list head
+    newNode->next = list->head;
+
+    //make list head newNode
+    list->head = newNode;
+
+}
+
+///adds element to end of list
+void CDS_LinkedList_addLast(List* list,void* data){
+
+    //if list empty
+    if(list->head == NULL){
+        list->head = createNode(data);
+        return;
+    }
+
+    //travelsing linked list
+    Node* current = list->head;
+    while(current->next != NULL){
+        current = current->next;
+    }
+
+    //add element end of list
+    current->next = createNode(data);
+}
+
 void CDS_LinkedList_addAfterIndex(List* list,void* data,unsigned int index){}
 void CDS_LinkedList_addAfterData(List* list,void* data,void* indexData){}
+
+//-----------------------------------------------------------//
+//---------------------------REMOVE--------------------------//
+//-----------------------------------------------------------//
 
 ///remove first element from list
 void CDS_LinkedList_removeFirst(List* list){
@@ -77,6 +144,11 @@ void CDS_LinkedList_removeLast(List* list){
 }
 
 void CDS_LinkedList_removeAfterIndex(List* list,unsigned int index){}
+void CDS_LinkedList_removeAfterData(List* list,void* data);
+
+//-----------------------------------------------------------//
+//---------------------------UTILS---------------------------//
+//-----------------------------------------------------------//
 
 ///Checks if lisf of head empty
 int CDS_LinkedList_isEmpty(List* list){
@@ -87,64 +159,13 @@ int CDS_LinkedList_isEmpty(List* list){
     return 0;
 }
 
+void CDS_LinkedList_reverse(List* list){}
+void CDS_LinkedList_Compare(List* firstList, List* secondList){}
+void* CDS_LinkedList_SearchElement(List* list){return 0;}
+int  CDS_LinkedList_FindElement(List* list){return 0;}
 
-///create node
-static Node* createNode(void* data){
-
-    //memory allocation for node
-    Node* newNode = malloc(sizeof(Node));
-
-    //error check
-    if(!newNode){
-       // perror("Failed to create newNode in CDS_LinkedList");
-        return NULL;
-    }
-
-    //put the data inside of node
-    newNode->data = data;
-    newNode->next = NULL;
-
-    return newNode;
-}
-
-///adds Element to head of list
-void CDS_LinkedList_addFirst(List* list,void* data){
-
-    //if list empty make the element list of head
-    if(list->head == NULL){
-        list->head = createNode(data);
-        return;
-    }
-
-    //create Nodes
-    Node* newNode = createNode(data);
-
-    //connect new node to list head
-    newNode->next = list->head;
-
-    //make list head newNode
-    list->head = newNode;
-
-}
-
-///adds element to end of list
-void CDS_LinkedList_addLast(List* list,void* data){
-
-    //if list empty
-    if(list->head == NULL){
-        list->head = createNode(data);
-        return;
-    }
-
-    //travelsing linked list
-    Node* current = list->head;
-    while(current->next != NULL){
-        current = current->next;
-    }
-
-    //add element end of list
-    current->next = createNode(data);
-}
+///yaklasik olarak [i] islemini yapar
+void* CDS_LinkedList_GetData(List* list,unsigned int index){return 0;}
 
 ///it frees linked list
 void CDS_LinkedList_destroy(List* list){
