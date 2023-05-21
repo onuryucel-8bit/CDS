@@ -1,18 +1,28 @@
 #include "CDS_DynamicArray.h"
 
+//21.05.23 tested
 static cdsArray_Data* createArrayData(unsigned int size){
     cdsArray_Data* newData = malloc(sizeof(cdsArray_Data) * size);
 
+    if(newData == NULL){
+        return NULL;
+    }
+
     for(int i = 0; i < size;i++){
-        newData->data = NULL;
+        newData[i].data = NULL;
     }
 
     return newData;
 }
 
+//21.05.23 tested
 cdsArray* CDS_dynamicArray_init(unsigned int capacity){
 
     cdsArray* newArray = malloc(sizeof(cdsArray));
+
+    if(newArray == NULL){
+        return NULL;
+    }
 
     newArray->arrayHead = createArrayData(capacity);
     newArray->capacity = capacity;
@@ -21,9 +31,14 @@ cdsArray* CDS_dynamicArray_init(unsigned int capacity){
     return newArray;
 }
 
+//-----------------------------------------------------------//
 //----------------ADD----------------//
+//-----------------------------------------------------------//
+
+//21.05.23 tested
 void CDS_dynamicArray_addLast(cdsArray* array,void* data){
 
+    //if array is full resize the array
     if(array->index >= array->capacity){
         CDS_dynamicArray_resize();
     }
@@ -36,18 +51,22 @@ void CDS_dynamicArray_addLast(cdsArray* array,void* data){
     */
     array->arrayHead[array->index].data = data;
 
+    array->index++;
 }
 
 //change name to overWrite
 void CDS_dynamicArray_addIndex(cdsArray* array,void* data,unsigned int index){
     if(array->index <= index){
-        return 0;
+        return;
     }
 
     array->arrayHead[index].data = data;
 }
 
+//-----------------------------------------------------------//
 //--------------REMOVE---------------//
+//-----------------------------------------------------------//
+
 void CDS_dynamicArray_removeElement(cdsArray* array,void* data){
 
     if(array->index == 0){
@@ -68,7 +87,9 @@ void CDS_dynamicArray_removeElementIndex(cdsArray* array,void* data,unsigned int
     }
 }
 
+//-----------------------------------------------------------//
 //---------------UTILS---------------//
+//-----------------------------------------------------------//
 
 void* CDS_dynamicArray_getElement(cdsArray* array,unsigned int index){
     if(array->index <= index){
@@ -143,23 +164,28 @@ void  CDS_dynamicArray_clearAll(cdsArray* array){
 }
 
 void  CDS_dynamicArray_resize(cdsArray* array){
+     cdsArray* newArray = CDS_dynamicArray_init(array->capacity + 10);
 
+     for(int i = 0; i < array->index; i++){
+        newArray->arrayHead[i].data = array->arrayHead[i].data;
+     }
+
+     CDS_dynamicArray_free(array);
+
+     array = newArray;
 }
 
+//21.05.23 looks good
 void  CDS_dynamicArray_free(cdsArray* dataPack){
 
-    cdsArray_Data* current = dataPack->arrayHead;
+   for(int i = 1; i < dataPack->capacity; i++){
+        free(dataPack->arrayHead[i].data);
+   }
 
-    cdsArray_Data* nextNode = current;
+   free(dataPack->arrayHead);
+   free(dataPack);
 
-    //free nodes
-    while(current != NULL){
-        nextNode = current->next;
-        free(current);
-        current = nextNode;
-    }
-
-    //free list
-    free(dataPack);
-    dataPack->head = NULL;
+   dataPack->arrayHead = NULL;
+   dataPack->capacity = 0;
+   dataPack->index = 0;
 }
