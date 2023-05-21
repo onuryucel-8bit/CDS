@@ -16,10 +16,10 @@ struct stdDynamicArray{
 
     cdsArray_Data* arrayHead;
     unsigned int index;
-
+    unsigned int capacity;
 };
 
-cdsArray* CDS_dynamicArray_init();
+cdsArray* CDS_dynamicArray_init(unsigned int capacity);
 
 //----------------ADD----------------//
 void CDS_dynamicArray_addLast(cdsArray* array,void* data);
@@ -27,7 +27,7 @@ void CDS_dynamicArray_addIndex(cdsArray* array,void* data,unsigned int index);
 
 //--------------REMOVE---------------//
 void CDS_dynamicArray_removeElement(cdsArray* array,void* data);
-void CDS_dynamicArray_removeElementIndex(cdsArray* array,void* data);
+void CDS_dynamicArray_removeElementIndex(cdsArray* array,void* data,unsigned int index);
 
 //---------------UTILS---------------//
 
@@ -35,7 +35,7 @@ void* CDS_dynamicArray_getElement();
 int   CDS_dynamicArray_searchElement();
 void* CDS_dynamicArray_findElement();
 void  CDS_dynamicArray_sort();
-void  CDS_dynamicArray_clearAll(cdsArray* dataPack);
+void  CDS_dynamicArray_clearAll(cdsArray* array);
 void  CDS_dynamicArray_resize();
 
 void  CDS_dynamicArray_free(cdsArray* dataPack);
