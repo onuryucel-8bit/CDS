@@ -31,7 +31,8 @@ void CDS_dynamicArray_removeElementIndex(cdsArray* array,void* data,unsigned int
 
 //---------------UTILS---------------//
 
-void* CDS_dynamicArray_getElement();
+void* CDS_dynamicArray_getElement(cdsArray* array,unsigned int index);
+int   CDS_dynamicArray_searchIndex(cdsArray* array,void* data,int compare(void* element1,void* element2));
 int   CDS_dynamicArray_searchElement();
 void* CDS_dynamicArray_findElement();
 void  CDS_dynamicArray_sort();
