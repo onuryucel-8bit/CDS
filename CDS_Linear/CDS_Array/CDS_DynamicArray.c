@@ -178,7 +178,7 @@ void  CDS_dynamicArray_resize(cdsArray* array){
 //21.05.23 looks good
 void  CDS_dynamicArray_free(cdsArray* dataPack){
 
-   for(int i = 1; i < dataPack->capacity; i++){
+   for(int i = 0; i < dataPack->capacity; i++){
         free(dataPack->arrayHead[i].data);
    }
 

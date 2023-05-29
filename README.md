@@ -22,8 +22,13 @@ Queue
 
 <ul>
   <li>Linked_Queue</li>
-  <li>Array_Queue<li>
-<ul>
+  <li>Array_Queue</li>
+</ul>
 
 Tree
+
+<ul>
+  <li>BinarySearch_Tree</li>
+</ul>
+
 Graph

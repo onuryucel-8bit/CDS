@@ -3,6 +3,10 @@
 
 typedef struct stdGraphLL graph;
 
+struct stdGrapLL{
+
+};
+
 typedef struct stdGraphLL_adjList graph;
 
 void CDS_GRAPHLL_init();

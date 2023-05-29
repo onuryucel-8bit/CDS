@@ -3,26 +3,32 @@
 
 #include<stdlib.h>
 
-typedef struct stdStackArrayData stackArrData;
+typedef struct stdStackArrayData cds_stackArrData;
 
 struct stdStackArrayData{
     void* data;
 };
 
-typedef struct stdStackArray stackArray;
+typedef struct stdStackArray cds_stackArray;
 
 struct stdStackArray{
-    stackArrData* top;
+    cds_stackArrData* array;
     unsigned int capacity;
     unsigned int index;
 };
 
-stackArray* CDS_Stack_arr_init(unsigned int capacity);
+cds_stackArray* CDS_Stack_arr_init(unsigned int capacity);
 
-void CDS_Stack_arr_push(stackArray* stack,int data);
-void CDS_Stack_arr_pop(stackArray* stack);
-stackArrData* CDS_Stack_arr_top(stackArray* stack);
-int CDS_Stack_arr_isEmpty(stackArray* stack);
-void CDS_Stack_arr_destroy(stackArray* stack);
+void CDS_Stack_arr_push(cds_stackArray* stack,void* data);
+
+void CDS_Stack_arr_pop(cds_stackArray* stack);
+
+//----------------------------------------------------//
+
+cds_stackArrData* CDS_Stack_arr_top(cds_stackArray* stack);
+
+int CDS_Stack_arr_isEmpty(cds_stackArray* stack);
+
+void CDS_Stack_arr_destroy(cds_stackArray* stack);
 
 #endif
