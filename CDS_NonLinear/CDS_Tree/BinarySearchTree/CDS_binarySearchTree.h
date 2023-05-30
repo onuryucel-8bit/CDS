@@ -6,22 +6,24 @@
 typedef struct stdBinaryTreeData cds_bstData;
 
 struct stdBinaryTreeData{
-    void* data;
+    //void* data;
+    int data;
     cds_bstData* right;
     cds_bstData* left;
 };
 
 typedef struct stdBinarySearchTree cds_binaryStree;
 
-struct stdBinaryTreeData{
+struct stdBinarySearchTree{
     cds_bstData* root;
     unsigned int numberOfElements;
     //unsigned int depth;
 };
 
-void CDS_init_bst();
+cds_binaryStree* CDS_init_bst();
 
-void CDS_bst_add();
+//void CDS_bst_add(cds_binaryStree* tree,void* data,int compare(void* idata,void* cmpData));
+void CDS_bst_add(cds_binaryStree* tree,int data);
 void CDS_bst_remove();
 
 

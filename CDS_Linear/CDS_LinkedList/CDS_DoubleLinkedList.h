@@ -3,12 +3,28 @@
 
 #include<stdlib.h>
 
+typedef struct stdDoubleLL_Node cds_douLL_Data;
+
+struct stdDoubleLL_Node{
+    void* data;
+    cds_douLL_Data* next;
+    cds_douLL_Data* prev;
+};
+
+typedef struct stdDoubleLL_List cds_douLL_List;
+
+struct stdDoubleLL_List{
+    cds_douLL_Data* head;
+};
+
 //----------INIT----------//
-List* CDS_Double_LinkedList_init();
+cds_douLL_List* CDS_Double_LinkedList_init();
+
 
 //----------ADD-----------//
-void CDS_Double_LinkedList_addFirst(List* list,void* data);
-void CDS_Double_LinkedList_addLast(List* list,void* data);
+void CDS_Double_LinkedList_addLast(cds_douLL_List* list,void* data);
+/*void CDS_Double_LinkedList_addFirst(List* list,void* data);
+
 
 void CDS_Double_LinkedList_addAfterIndex(List* list,void* data,unsigned int index);
 void CDS_Double_LinkedList_addAfterData(List* list,void* data,void* indexData);
@@ -29,7 +45,7 @@ int  CDS_Double_LinkedList_FindElement(List* list);
 
 ///yaklasik olarak [i] islemini yapar
 void* CDS_Double_LinkedList_GetData(List* list,unsigned int index);
-
-void CDS_Double_LinkedList_destroy(List* list);
+*/
+void CDS_Double_LinkedList_destroy(cds_douLL_List* list);
 
 #endif // CDS_DOUBLE_LINKED_LIST_H
