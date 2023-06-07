@@ -40,28 +40,18 @@ void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
 
 
     assert(stack != NULL);
-/*
-    printf("stack->top %p\n",stack->top);
-    printf("newNode->next %p\n",newNode->next);
-    printf("newNode->data %p\n",newNode->data);
-    printf("----------\n");
-*/
+
     if(stack->top == NULL){
 
         stack->top = newNode;
-     /*   printf("newNode  %p\n",newNode);
-        printf("FIRST stack->top !! %p\n",stack->top);
-        printf("-----DONE-----\n");*/
+
         return;
     }
 
-
-    //printf("newNode  %p\n",newNode);
     newNode->next = stack->top;
-    //printf("newNode->next !! %p\n",newNode->next);
+
     stack->top = newNode;
-    //printf("stack->top !! %p\n",stack->top);
-    //printf("----DONE-----\n");
+
 
 }
 
