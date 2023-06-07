@@ -3,8 +3,8 @@
 
 #include"CDS_QueueLL.h"
 
-queueLL* CDS_Queue_LL_init(){
-    queueLL* newQueue = malloc(sizeof(queueLL));
+cdst_queue_Holder* CDS_Queue_LL_init(){
+    cdst_queue_Holder* newQueue = malloc(sizeof(cdst_queue_Holder));
 
     if(!newQueue){
         return NULL;
@@ -15,8 +15,8 @@ queueLL* CDS_Queue_LL_init(){
     return newQueue;
 }
 
-static queueNode* queue_CreateNode(void* data){
-    queueNode* newNode = malloc(sizeof(queueNode));
+static cdst_queue_Data* queue_CreateNode(void* data){
+    cdst_queue_Data* newNode = malloc(sizeof(cdst_queue_Data));
 
     if(!newNode){
         return NULL;
@@ -28,16 +28,16 @@ static queueNode* queue_CreateNode(void* data){
     return newNode;
 }
 
-void CDS_Queue_LL_enQueue(queueLL* queue,void* data){
+void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data){
 
-    queueNode* newNode = queue_CreateNode(data);
+    cdst_queue_Data* newNode = queue_CreateNode(data);
 
     if(queue->top == NULL){
         queue->top = newNode;
         return;
     }
 
-    queueNode* current = queue->top;
+    cdst_queue_Data* current = queue->top;
     while(current->next != NULL){
         current = current->next;
     }
@@ -46,12 +46,12 @@ void CDS_Queue_LL_enQueue(queueLL* queue,void* data){
 
 }
 
-void CDS_Queue_LL_deQueue(queueLL* queue,void* data){
+void CDS_Queue_LL_deQueue(cdst_queue_Holder* queue,void* data){
     if(queue->top == NULL){
         return;
     }
 
-    queueNode* current = queue->top;
+    cdst_queue_Data* current = queue->top;
 
     current = current->next;
 
@@ -61,10 +61,10 @@ void CDS_Queue_LL_deQueue(queueLL* queue,void* data){
 
 }
 
-void CDS_Queue_LL_destroy(queueLL* queue){
+void CDS_Queue_LL_destroy(cdst_queue_Holder* queue){
 
-    queueNode* current = queue->top;
-    queueNode* nextNode = current;
+    cdst_queue_Data* current = queue->top;
+    cdst_queue_Data* nextNode = current;
 
     while(current->next != NULL){
         nextNode = current->next;

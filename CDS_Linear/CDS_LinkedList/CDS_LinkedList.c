@@ -1,11 +1,12 @@
 #include "CDS_LinkedList.h"
 
+//cdst c data structure type
 
 ///initiliaze the list struct
-List* CDS_LinkedList_init() {
+cdst_linkedList_List* CDS_LinkedList_init() {
 
     //memory allocetion for list
-    List* list = malloc(sizeof(List));
+    cdst_linkedList_List* list = malloc(sizeof(cdst_linkedList_List));
 
     //eger bellekten yer alinamadiysa
     if (!list) {
@@ -18,10 +19,10 @@ List* CDS_LinkedList_init() {
 }
 
 ///create node
-static Node* createNode(void* data){
+static cdst_linkedList_Data* createNode(void* data){
 
     //memory allocation for node
-    Node* newNode = malloc(sizeof(Node));
+    cdst_linkedList_Data* newNode = malloc(sizeof(cdst_linkedList_Data));
 
     //error check
     if(!newNode){
@@ -42,7 +43,7 @@ static Node* createNode(void* data){
 //-----------------------------------------------------------//
 
 ///adds Element to head of list
-void CDS_LinkedList_addFirst(List* list,void* data){
+void CDS_LinkedList_addFirst(cdst_linkedList_List* list,void* data){
 
     //if list empty make the element list of head
     if(list->head == NULL){
@@ -51,7 +52,7 @@ void CDS_LinkedList_addFirst(List* list,void* data){
     }
 
     //create Nodes
-    Node* newNode = createNode(data);
+    cdst_linkedList_Data* newNode = createNode(data);
 
     //connect new node to list head
     newNode->next = list->head;
@@ -62,7 +63,7 @@ void CDS_LinkedList_addFirst(List* list,void* data){
 }
 
 ///adds element to end of list
-void CDS_LinkedList_addLast(List* list,void* data){
+void CDS_LinkedList_addLast(cdst_linkedList_List* list,void* data){
 
     //if list empty
     if(list->head == NULL){
@@ -71,7 +72,7 @@ void CDS_LinkedList_addLast(List* list,void* data){
     }
 
     //travelsing linked list
-    Node* current = list->head;
+    cdst_linkedList_Data* current = list->head;
     while(current->next != NULL){
         current = current->next;
     }
@@ -80,22 +81,22 @@ void CDS_LinkedList_addLast(List* list,void* data){
     current->next = createNode(data);
 }
 
-void CDS_LinkedList_addAfterIndex(List* list,void* data,unsigned int index){}
-void CDS_LinkedList_addAfterData(List* list,void* data,void* indexData){}
+void CDS_LinkedList_addAfterIndex(cdst_linkedList_List* list,void* data,unsigned int index){}
+void CDS_LinkedList_addAfterData(cdst_linkedList_List* list,void* data,void* indexData){}
 
 //-----------------------------------------------------------//
 //---------------------------REMOVE--------------------------//
 //-----------------------------------------------------------//
 
 ///remove first element from list
-void CDS_LinkedList_removeFirst(List* list){
+void CDS_LinkedList_removeFirst(cdst_linkedList_List* list){
 
     //check first element
     if(list->head == NULL){
 
         //if head has next element
         if(list->head->next != NULL){
-            Node* current = list->head->next;
+            cdst_linkedList_Data* current = list->head->next;
 
             //free list head
             free(list->head);
@@ -114,15 +115,15 @@ void CDS_LinkedList_removeFirst(List* list){
 }
 
 ///remove last element from list
-void CDS_LinkedList_removeLast(List* list){
+void CDS_LinkedList_removeLast(cdst_linkedList_List* list){
 
     //check list is null
     if(list->head == NULL){
         return;
     }
 
-    Node* current = list->head;
-    Node* previous = NULL;
+    cdst_linkedList_Data* current = list->head;
+    cdst_linkedList_Data* previous = NULL;
 
     if (current->next == NULL) {
         // Only one element in the list
@@ -143,15 +144,15 @@ void CDS_LinkedList_removeLast(List* list){
 
 }
 
-void CDS_LinkedList_removeAfterIndex(List* list,unsigned int index){}
-void CDS_LinkedList_removeAfterData(List* list,void* data);
+void CDS_LinkedList_removeAfterIndex(cdst_linkedList_List* list,unsigned int index){}
+void CDS_LinkedList_removeAfterData(cdst_linkedList_List* list,void* data);
 
 //-----------------------------------------------------------//
 //---------------------------UTILS---------------------------//
 //-----------------------------------------------------------//
 
 ///Checks if lisf of head empty
-int CDS_LinkedList_isEmpty(List* list){
+int CDS_LinkedList_isEmpty(cdst_linkedList_List* list){
     if(list->head == NULL){
         return 1;
     }
@@ -159,20 +160,20 @@ int CDS_LinkedList_isEmpty(List* list){
     return 0;
 }
 
-void CDS_LinkedList_reverse(List* list){}
-void CDS_LinkedList_Compare(List* firstList, List* secondList){}
-void* CDS_LinkedList_SearchElement(List* list){return 0;}
-int  CDS_LinkedList_FindElement(List* list){return 0;}
+void CDS_LinkedList_reverse(cdst_linkedList_List* list){}
+void CDS_LinkedList_Compare(cdst_linkedList_List* firstList, cdst_linkedList_List* secondList){}
+void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list){return 0;}
+int  CDS_LinkedList_FindElement(cdst_linkedList_List* list){return 0;}
 
 ///yaklasik olarak [i] islemini yapar
-void* CDS_LinkedList_GetData(List* list,unsigned int index){return 0;}
+void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index){return 0;}
 
 ///it frees linked list
-void CDS_LinkedList_destroy(List* list){
+void CDS_LinkedList_destroy(cdst_linkedList_List* list){
 
-    Node* current = list->head;
+    cdst_linkedList_Data* current = list->head;
 
-    Node* nextNode = current;
+    cdst_linkedList_Data* nextNode = current;
 
     //free nodes
     while(current != NULL){

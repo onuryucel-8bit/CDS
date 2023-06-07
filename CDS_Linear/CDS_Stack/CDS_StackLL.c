@@ -1,25 +1,30 @@
 #include "CDS_StackLL.h"
 
 
-static stackNode* CDS_Stack_createNode(int data){
+static cdst_stack_Data* CDS_Stack_createNode(void* data){
 
-    stackNode* newNode = malloc(sizeof(stackNode));
+    cdst_stack_Data* newNode = (cdst_stack_Data*)malloc(sizeof(cdst_stack_Data));
 
-    if(!newNode){
+    assert(newNode != NULL);
+    if(newNode == NULL){
+        printf("NEW node NULL\n");
         return NULL;
     }
 
     newNode->data = data;
+
     newNode->next = NULL;
 
     return newNode;
 }
 
-cstack* CDS_StackLL_init(){
+cdst_stack_Holder* CDS_StackLL_init(){
 
-     cstack* stack = malloc(sizeof(cstack));
+     cdst_stack_Holder* stack = (cdst_stack_Holder*)malloc(sizeof(cdst_stack_Holder));
 
-     if(!stack){
+     assert(stack != NULL);
+     if(stack == NULL){
+        printf("NULLL");
         return NULL;
      }
 
@@ -29,33 +34,53 @@ cstack* CDS_StackLL_init(){
 
 }
 
-void CDS_StackLL_push(cstack* stack,int data){
+void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
 
-    stackNode* newNode = CDS_Stack_createNode(data);
+    cdst_stack_Data* newNode = CDS_Stack_createNode(data);
 
+
+    assert(stack != NULL);
+/*
+    printf("stack->top %p\n",stack->top);
+    printf("newNode->next %p\n",newNode->next);
+    printf("newNode->data %p\n",newNode->data);
+    printf("----------\n");
+*/
+    if(stack->top == NULL){
+
+        stack->top = newNode;
+     /*   printf("newNode  %p\n",newNode);
+        printf("FIRST stack->top !! %p\n",stack->top);
+        printf("-----DONE-----\n");*/
+        return;
+    }
+
+
+    //printf("newNode  %p\n",newNode);
     newNode->next = stack->top;
+    //printf("newNode->next !! %p\n",newNode->next);
     stack->top = newNode;
+    //printf("stack->top !! %p\n",stack->top);
+    //printf("----DONE-----\n");
 
 }
 
-void CDS_StackLL_pop(cstack* stack){
+void CDS_StackLL_pop(cdst_stack_Holder* stack){
     if(stack->top == NULL){
         return;
     }
 
-    stackNode* newTop = stack->top->next;
+    cdst_stack_Data* oldTop = stack->top;
+    stack->top = oldTop->next;
 
-    free(stack->top);
-
-    stack->top = newTop;
-
+    free(oldTop);
 }
 
-stackNode* CDS_StackLL_top(cstack* stack){
+cdst_stack_Data* CDS_StackLL_top(cdst_stack_Holder* stack){
     return stack->top;
 }
 
-int CDS_StackLL_isEmpty(cstack* stack){
+int CDS_StackLL_isEmpty(cdst_stack_Holder* stack){
     if(stack->top == NULL){
         return 1;
     }
@@ -63,14 +88,15 @@ int CDS_StackLL_isEmpty(cstack* stack){
     return 0;
 }
 
-void CDS_StackLL_destroy(cstack* stack){
+void CDS_StackLL_destroy(cdst_stack_Holder* stack){
 
-    stackNode* current = stack->top;
+    cdst_stack_Data* current = stack->top;
 
-    stackNode* nextNode = current;
+    cdst_stack_Data* nextNode = current;
 
     while(current != NULL){
         nextNode = current->next;
+        free(current->data);
         free(current);
         current = nextNode;
     }

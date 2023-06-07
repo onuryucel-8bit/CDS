@@ -4,16 +4,16 @@
 #include<stdlib.h>
 
 
-typedef struct stdQueueData queueData;
+typedef struct stdQueueArrData cdst_queueArray_Data;
 
-struct stdQueueData{
+struct stdQueueArrData{
     void* data;
 };
 
 typedef struct stdQueueArr queueArr;
 
 struct stdQueueArr{
-     queueData* top;
+     cdst_queueArray_Data* top;
      unsigned int size;
 };
 

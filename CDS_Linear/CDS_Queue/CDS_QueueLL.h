@@ -3,22 +3,22 @@
 
 #include<stdlib.h>
 
-typedef struct stdQueueNode queueNode;
+typedef struct stdQueueNode cdst_queue_Data;
 
 struct stdQueueNode{
     void* data;
-    queueNode* next;
+    cdst_queue_Data* next;
 };
 
-typedef struct stdQueue queueLL;
+typedef struct stdQueue cdst_queue_Holder;
 
 struct stdQueue{
-     queueNode* top;
+    cdst_queue_Data* top;
 };
 
-queueLL* CDS_Queue_LL_init();
-void CDS_Queue_LL_enQueue(queueLL* queue,void* data);
-void CDS_Queue_LL_deQueue(queueLL* queue,void* data);
-void CDS_Queue_LL_destroy(queueLL* queue);
+cdst_queue_Holder* CDS_Queue_LL_init();
+void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data);
+void CDS_Queue_LL_deQueue(cdst_queue_Holder* queue,void* data);
+void CDS_Queue_LL_destroy(cdst_queue_Holder* queue);
 
 #endif // CDS_OUEUE_LL_H

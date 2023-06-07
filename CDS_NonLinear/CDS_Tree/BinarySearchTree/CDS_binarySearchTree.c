@@ -1,9 +1,9 @@
 #include "CDS_binarySearchTree.h"
 
 /*
-static cds_bstData* createBst_SearchData(void* data,cds_bstData* right,cds_bstData* left){
+static cdst_bst_Data* createBst_SearchData(void* data,cdst_bst_Data* right,cdst_bst_Data* left){
 
-    cds_bstData* newNode = malloc(sizeof(cds_bstData));
+    cdst_bst_Data* newNode = malloc(sizeof(cdst_bst_Data));
 
     newNode->data = data;
     newNode->right = right;
@@ -14,9 +14,9 @@ static cds_bstData* createBst_SearchData(void* data,cds_bstData* right,cds_bstDa
 
 */
 
-static cds_bstData* createBst_SearchData(int data,cds_bstData* right,cds_bstData* left){
+static cdst_bst_Data* createBst_SearchData(int data,cdst_bst_Data* right,cdst_bst_Data* left){
 
-    cds_bstData* newNode = malloc(sizeof(cds_bstData));
+    cdst_bst_Data* newNode = malloc(sizeof(cdst_bst_Data));
 
     newNode->data = data;
     newNode->right = right;
@@ -25,17 +25,19 @@ static cds_bstData* createBst_SearchData(int data,cds_bstData* right,cds_bstData
     return newNode;
 }
 
-cds_binaryStree* CDS_init_bst(){
-    cds_binaryStree* newBST_Tree = malloc(sizeof(cds_binaryStree));
+cdst_binaryStree_Holder* CDS_init_bst(){
+    cdst_binaryStree_Holder* newBST_Tree = malloc(sizeof(cdst_binaryStree_Holder));
 
     newBST_Tree->root = NULL;
 
     return newBST_Tree;
 }
 
-void CDS_bst_add(cds_binaryStree* tree,int data){
+//------------------------------------------------------------//
 
-    cds_bstData* newNode = createBst_SearchData(data,NULL,NULL);
+void CDS_bst_add(cdst_binaryStree_Holder* tree,int data){
+
+    cdst_bst_Data* newNode = createBst_SearchData(data,NULL,NULL);
 
     if(tree->root == NULL){
         tree->root = newNode;
@@ -43,15 +45,44 @@ void CDS_bst_add(cds_binaryStree* tree,int data){
     }
 
     //go right side
-    cds_bstData* current = tree->root;
+    cdst_bst_Data* current = tree->root;
     while(current != NULL){
 
         if(data >= current->data){
             current = current->right;
         }
-        else //(data <){
+        else //(data < current->data){
             current = current->left;
         }
-
 }
+
+//------------------------------------------------------------//
+
+void CDS_bst_remove(cdst_binaryStree_Holder* tree, int data){
+    if(tree == NULL)return;
+
+    cdst_bst_Data* root = tree->root;
+
+    while(root != NULL){
+
+        if(data >= root->right->data){
+
+            root = root->right;
+
+        }else{
+            root = root->left;
+        }
+    }
+}
+
+//------------------------------------------------------------//
+
+static void bst_inOrder(cdst_bst_Data* root){
+    //printf(root->data);
+}
+
+void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree){
+    bst_inOrder(tree->root);
+}
+
 

@@ -3,26 +3,26 @@
 
 #include<stdlib.h>
 
-typedef struct stdDoubleLL_Node cds_douLL_Data;
+typedef struct stdDoubleLL_Node cdst_douLL_Data;
 
 struct stdDoubleLL_Node{
     void* data;
-    cds_douLL_Data* next;
-    cds_douLL_Data* prev;
+    cdst_douLL_Data* next;
+    cdst_douLL_Data* prev;
 };
 
-typedef struct stdDoubleLL_List cds_douLL_List;
+typedef struct stdDoubleLL_List cdst_douLL_List;
 
 struct stdDoubleLL_List{
-    cds_douLL_Data* head;
+    cdst_douLL_Data* head;
 };
 
 //----------INIT----------//
-cds_douLL_List* CDS_Double_LinkedList_init();
+cdst_douLL_List* CDS_Double_LinkedList_init();
 
 
 //----------ADD-----------//
-void CDS_Double_LinkedList_addLast(cds_douLL_List* list,void* data);
+void CDS_Double_LinkedList_addLast(cdst_douLL_List* list,void* data);
 /*void CDS_Double_LinkedList_addFirst(List* list,void* data);
 
 
@@ -46,6 +46,6 @@ int  CDS_Double_LinkedList_FindElement(List* list);
 ///yaklasik olarak [i] islemini yapar
 void* CDS_Double_LinkedList_GetData(List* list,unsigned int index);
 */
-void CDS_Double_LinkedList_destroy(cds_douLL_List* list);
+void CDS_Double_LinkedList_destroy(cdst_douLL_List* list);
 
 #endif // CDS_DOUBLE_LINKED_LIST_H

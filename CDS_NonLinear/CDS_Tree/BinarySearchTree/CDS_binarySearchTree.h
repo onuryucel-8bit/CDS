@@ -3,33 +3,33 @@
 
 #include<stdlib.h>
 
-typedef struct stdBinaryTreeData cds_bstData;
+typedef struct stdBinaryTreeData cdst_bst_Data;
 
 struct stdBinaryTreeData{
     //void* data;
     int data;
-    cds_bstData* right;
-    cds_bstData* left;
+    cdst_bst_Data* right;
+    cdst_bst_Data* left;
 };
 
-typedef struct stdBinarySearchTree cds_binaryStree;
+typedef struct stdBinarySearchTree cdst_binaryStree_Holder;
 
 struct stdBinarySearchTree{
-    cds_bstData* root;
+    cdst_bst_Data* root;
     unsigned int numberOfElements;
     //unsigned int depth;
 };
 
-cds_binaryStree* CDS_init_bst();
+cdst_binaryStree_Holder* CDS_init_bst();
 
-//void CDS_bst_add(cds_binaryStree* tree,void* data,int compare(void* idata,void* cmpData));
-void CDS_bst_add(cds_binaryStree* tree,int data);
-void CDS_bst_remove();
+//void CDS_bst_add(cdst_binaryStree_Holder* tree,void* data,int compare(void* idata,void* cmpData));
+void CDS_bst_add(cdst_binaryStree_Holder* tree,int data);
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data);
 
 
-void CDS_bst_traversal_inOrder();
-void CDS_bst_traversal_preOrder();
-void CDS_bst_traversal_postOrder();
+void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree);
+void CDS_bst_traversal_preOrder(cdst_binaryStree_Holder* tree);
+void CDS_bst_traversal_postOrder(cdst_binaryStree_Holder* tree);
 
 void CDS_bst_traversal_bfs();
 void CDS_bst_traversal_dfs();

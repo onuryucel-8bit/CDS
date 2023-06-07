@@ -4,46 +4,46 @@
 #include<stdlib.h>
 #include<errno.h>
 
-typedef struct stdNode Node;
+typedef struct stdLinkedList_Node cdst_linkedList_Data;
 
-struct stdNode {
+struct stdLinkedList_Node {
     void* data;
-    Node* next;
+    cdst_linkedList_Data* next;
 };
 
-typedef struct stdList List;
+typedef struct stdLinkedList_List cdst_linkedList_List;
 
-struct stdList {
-     Node* head;
+struct stdLinkedList_List {
+     cdst_linkedList_Data* head;
 };
 
 //----------INIT----------//
-List* CDS_LinkedList_init();
+cdst_linkedList_List* CDS_LinkedList_init();
 
 //----------ADD-----------//
-void CDS_LinkedList_addFirst(List* list,void* data);
-void CDS_LinkedList_addLast(List* list,void* data);
+void CDS_LinkedList_addFirst(cdst_linkedList_List* list,void* data);
+void CDS_LinkedList_addLast(cdst_linkedList_List* list,void* data);
 
-void CDS_LinkedList_addAfterIndex(List* list,void* data,unsigned int index);
-void CDS_LinkedList_addAfterData(List* list,void* data,void* indexData);
+void CDS_LinkedList_addAfterIndex(cdst_linkedList_List* list,void* data,unsigned int index);
+void CDS_LinkedList_addAfterData(cdst_linkedList_List* list,void* data,void* indexData);
 
 //----------REMOVE-------//
-void CDS_LinkedList_removeFirst(List* list);
-void CDS_LinkedList_removeLast(List* list);
+void CDS_LinkedList_removeFirst(cdst_linkedList_List* list);
+void CDS_LinkedList_removeLast(cdst_linkedList_List* list);
 
-void CDS_LinkedList_removeAfterIndex(List* list,unsigned int index);
-void CDS_LinkedList_removeAfterData(List* list,void* data);
+void CDS_LinkedList_removeAfterIndex(cdst_linkedList_List* list,unsigned int index);
+void CDS_LinkedList_removeAfterData(cdst_linkedList_List* list,void* data);
 
 //----------UTILS-------//
-int  CDS_LinkedList_isEmpty(List* list);
-void CDS_LinkedList_reverse(List* list);
-void CDS_LinkedList_Compare(List* firstList, List* secondList);
-void* CDS_LinkedList_SearchElement(List* list);
-int  CDS_LinkedList_FindElement(List* list);
+int  CDS_LinkedList_isEmpty(cdst_linkedList_List* list);
+void CDS_LinkedList_reverse(cdst_linkedList_List* list);
+void CDS_LinkedList_Compare(cdst_linkedList_List* firstList, cdst_linkedList_List* secondList);
+void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list);
+int  CDS_LinkedList_FindElement(cdst_linkedList_List* list);
 
 ///yaklasik olarak [i] islemini yapar
-void* CDS_LinkedList_GetData(List* list,unsigned int index);
+void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index);
 
-void CDS_LinkedList_destroy(List* list);
+void CDS_LinkedList_destroy(cdst_linkedList_List* list);
 
 #endif
