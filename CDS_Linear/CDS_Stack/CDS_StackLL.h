@@ -33,4 +33,6 @@ int CDS_StackLL_isEmpty(cdst_stack_Holder* stack);
 
 void CDS_StackLL_destroy(cdst_stack_Holder* stack);
 
+char CDS_StackLL_getType_char_Top(cdst_stack_Holder* stack);
+
 #endif // CDS_STACK_LL_H

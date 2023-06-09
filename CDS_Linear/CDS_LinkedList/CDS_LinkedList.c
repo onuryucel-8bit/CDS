@@ -160,16 +160,115 @@ int CDS_LinkedList_isEmpty(cdst_linkedList_List* list){
     return 0;
 }
 
-void CDS_LinkedList_reverse(cdst_linkedList_List* list){}
-void CDS_LinkedList_Compare(cdst_linkedList_List* firstList, cdst_linkedList_List* secondList){}
-void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list){return 0;}
-int  CDS_LinkedList_FindElement(cdst_linkedList_List* list){return 0;}
+static void sta_linkedList_reverseTheList(cdst_linkedList_Data* current,cdst_linkedList_List* list){
 
+    //move to next node
+    if(current->next->next != NULL){
+        sta_linkedList_reverseTheList(current->next,list);
+
+    //if node is end of list
+    }
+    if(current->next->next == NULL){
+
+        current->next->next = current;
+        list->head = current->next;
+
+        return;
+    }
+
+    current->next->next = current;
+    //current->next = NULL;
+
+}
+
+void CDS_LinkedList_reverseRec(cdst_linkedList_List* list){
+    if(list->head->next == NULL){
+        return;
+    }
+
+    sta_linkedList_reverseTheList(list->head,list);
+
+
+}
+
+void CDS_LinkedList_reverse(cdst_linkedList_List* list){
+
+    if(list == NULL || list->head == NULL){
+        return;
+    }
+
+    cdst_linkedList_Data* current  = list->head;
+    cdst_linkedList_Data* previous = NULL;
+    cdst_linkedList_Data* tempNode = NULL;
+
+    while(current->next != NULL){
+
+        tempNode = current->next;
+
+        current->next = previous;
+
+        previous = current;
+        current = tempNode;
+
+    }
+
+    current->next = previous;
+
+    list->head = current;
+
+}
+
+/*int CDS_LinkedList_Compare(cdst_linkedList_List* list,cdst_linkedList_List* listSecond,int (*compare)(cdst_linkedList_Data* a,cdst_linkedList_Data* b)  ){
+
+    cdst_linkedList_Data* current = list->head;
+
+
+    return 0;
+}
+*/
+void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list){return 0;}
+
+
+///FIX make better this !
+/*int  CDS_LinkedList_FindElement(cdst_linkedList_List* list,void* findData,int (*compare)(cdst_linkedList_Data* a,void* b)  ){
+
+    if(list == NULL || list->head == NULL){
+        return
+    }
+
+    cdst_linkedList_Data* current = list->head;
+
+    while(current != NULL){
+        if(compare(current,findData)){
+            return 1;
+        }
+        current = current->next;
+    }
+    return 0;
+
+    return 0;
+}
+*/
 ///yaklasik olarak [i] islemini yapar
 void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index){return 0;}
 
+
+unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list){
+    cdst_linkedList_Data* current = list->head;
+    unsigned int i = 0;
+    while(current != NULL){
+        i++;
+        current = current->next;
+    }
+    return i;
+}
+
 ///it frees linked list
 void CDS_LinkedList_destroy(cdst_linkedList_List* list){
+
+    if(list == NULL){
+        return;
+    }
 
     cdst_linkedList_Data* current = list->head;
 
@@ -184,6 +283,7 @@ void CDS_LinkedList_destroy(cdst_linkedList_List* list){
 
     //free list
     free(list);
-    list->head = NULL;
+
+
 }
 

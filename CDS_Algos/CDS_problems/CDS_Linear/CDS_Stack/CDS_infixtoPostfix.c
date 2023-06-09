@@ -23,6 +23,14 @@ int compare_precedence(char a,char b){
     return 0;
 }
 
+
+/**
+ * Checks if a character is an operand.
+ * An operand is any character that is not '+', '-', '*', '/', '(', or ')'.
+ *
+ * @param c The character to be checked.
+ * @return Returns 1 if the character is an operand, 0 otherwise.
+ */
 int isOperand(char c){
     switch(c){
     case '+':

@@ -36,13 +36,24 @@ void CDS_LinkedList_removeAfterData(cdst_linkedList_List* list,void* data);
 
 //----------UTILS-------//
 int  CDS_LinkedList_isEmpty(cdst_linkedList_List* list);
+
+//reverse list with recursive
+void CDS_LinkedList_reverseRec(cdst_linkedList_List* list);
+
+//reverse list with two pointers
 void CDS_LinkedList_reverse(cdst_linkedList_List* list);
+
 void CDS_LinkedList_Compare(cdst_linkedList_List* firstList, cdst_linkedList_List* secondList);
 void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list);
 int  CDS_LinkedList_FindElement(cdst_linkedList_List* list);
 
+//print data char format
+//void CDS_LinkedList_toChar(cdst_linkedList_List* list,char translate() );
+
 ///yaklasik olarak [i] islemini yapar
 void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index);
+
+unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list);
 
 void CDS_LinkedList_destroy(cdst_linkedList_List* list);
 

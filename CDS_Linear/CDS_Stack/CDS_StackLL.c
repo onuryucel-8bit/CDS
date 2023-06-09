@@ -78,6 +78,10 @@ int CDS_StackLL_isEmpty(cdst_stack_Holder* stack){
     return 0;
 }
 
+char CDS_StackLL_getType_char_Top(cdst_stack_Holder* stack){
+    return *(char*)(stack->top->data);
+}
+
 void CDS_StackLL_destroy(cdst_stack_Holder* stack){
 
     cdst_stack_Data* current = stack->top;
