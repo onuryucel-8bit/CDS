@@ -4,6 +4,13 @@
 #include<stdlib.h>
 #include<errno.h>
 
+///FIX CDS_LinkedList_removeLast
+
+///TODO CDS_LinkedList_GetData
+///TODO CDS_LinkedList_removeAfterIndex
+///TODO CDS_LinkedList_removeAfterData
+///TODO CDS_LinkedList_SearchElement
+
 typedef struct stdLinkedList_Node cdst_linkedList_Data;
 
 struct stdLinkedList_Node {

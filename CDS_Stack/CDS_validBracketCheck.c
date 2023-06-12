@@ -1,5 +1,7 @@
 #include"CDS_validBracketCheck.h"
 
+///FIX STACK 09.06.23!
+
 int isMatchingPair(char c,cdst_stack_Holder* stack){
     if((c == ')' && CDS_StackLL_getType_char_Top(stack) == '(')  ||
        (c == ']' && CDS_StackLL_getType_char_Top(stack) == '[')  ||

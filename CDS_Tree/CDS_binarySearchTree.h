@@ -22,7 +22,7 @@ struct stdBinarySearchTree{
 cdst_binaryStree_Holder* CDS_init_bst();
 
 void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,void* data,int compare(void* idata,void* cmpData));
-void CDS_bst_remove(cdst_binaryStree_Holder* tree,void* data);
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,void* data,int compare(void* data,void* cmpData));
 
 
 void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree);

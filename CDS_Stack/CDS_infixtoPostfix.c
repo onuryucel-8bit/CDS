@@ -1,5 +1,7 @@
 #include "CDS_infixtoPostfix.h"
 
+///FIX STACK 09.06.23!
+
 int get_precedence(char a){
     switch(a){
         case'+':

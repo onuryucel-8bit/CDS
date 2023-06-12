@@ -10,6 +10,8 @@ char* NSTR_subStr(char* str,unsigned int start,unsigned int end);
 
 char* NSTR_dup(const char* str);
 
+void NSTR_reverseStr(char* str);
+
 //theres atoi function in stdlib but its return int
 double NSTR_toNumberDecimal_double(char* str);
 

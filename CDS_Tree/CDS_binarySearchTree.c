@@ -55,14 +55,30 @@ void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,void* data,int compare(
     CDS_st_bst_recursiveAdd(tree->root,data,compare);
 }
 
-//------------------------------------------------------------//
+//------------------------REMOVE--------------------------------//
 
-void CDS_bst_remove(cdst_binaryStree_Holder* tree,void* data){
-    if(tree == NULL)return;
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,void* data,int compare(void* data,void* cmpData)){
 
-    //cdst_bst_Data* root = tree->root;
+    if(tree == NULL || tree->root == NULL)return;
 
 
+    //delete tree
+    if(compare(tree->root,data)){
+
+    }
+    //delete child
+
+    //delete leaf
+    cdst_bst_Data* root = tree->root;
+    while(1){
+
+        if(compare(root->right,data)){
+            free(root->right);
+        }
+        if(compare(root->left,data)){
+            free(root->left);
+        }
+    }
 }
 
 //------------------------------------------------------------//

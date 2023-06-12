@@ -4,8 +4,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
-#include"../../../NSTR_strings/NSTR_string.h"
-#include"../../../../CDS_Linear/CDS_Stack/CDS_StackLL.h"
+#include"../NSTR_strings/NSTR_string.h"
+#include"CDS_StackLL.h"
 
 int get_precedence(char a);
 

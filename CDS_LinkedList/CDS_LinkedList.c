@@ -2,6 +2,8 @@
 
 //cdst c data structure type
 
+
+
 ///initiliaze the list struct
 cdst_linkedList_List* CDS_LinkedList_init() {
 
@@ -42,7 +44,10 @@ static cdst_linkedList_Data* createNode(void* data){
 //-----------------------------ADD---------------------------//
 //-----------------------------------------------------------//
 
-///adds Element to head of list
+/**
+*   adds element to head of list
+*
+*/
 void CDS_LinkedList_addFirst(cdst_linkedList_List* list,void* data){
 
     //if list empty make the element list of head
@@ -62,7 +67,9 @@ void CDS_LinkedList_addFirst(cdst_linkedList_List* list,void* data){
 
 }
 
-///adds element to end of list
+/**
+*   adds element to end of list
+*/
 void CDS_LinkedList_addLast(cdst_linkedList_List* list,void* data){
 
     //if list empty
@@ -88,7 +95,9 @@ void CDS_LinkedList_addAfterData(cdst_linkedList_List* list,void* data,void* ind
 //---------------------------REMOVE--------------------------//
 //-----------------------------------------------------------//
 
-///remove first element from list
+/**
+*   remove first element from list
+*/
 void CDS_LinkedList_removeFirst(cdst_linkedList_List* list){
 
     //check first element
@@ -114,7 +123,9 @@ void CDS_LinkedList_removeFirst(cdst_linkedList_List* list){
     }
 }
 
-///remove last element from list
+/**
+*   remove last element from list
+*/
 void CDS_LinkedList_removeLast(cdst_linkedList_List* list){
 
     //check list is null
