@@ -35,9 +35,17 @@ void* CDS_dynamicArray_getElement(cdsArray* array,unsigned int index);
 int   CDS_dynamicArray_searchIndex(cdsArray* array,void* data,int compare(void* element1,void* element2));
 int   CDS_dynamicArray_searchElement();
 void* CDS_dynamicArray_findElement();
+
 void  CDS_dynamicArray_sort();
+
 void  CDS_dynamicArray_clearAll(cdsArray* array);
 void  CDS_dynamicArray_resize();
+
+//transforms default array to CDS dynamic arrays
+//void  CDS_dynamicArray_transformTo_darray(cdst_dynamic_Array* array,unsigned int size);
+
+//void  CDS_dynamicArray_findMax(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
+//void  CDS_dynamicArray_findMin(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
 
 void  CDS_dynamicArray_free(cdsArray* dataPack);
 
