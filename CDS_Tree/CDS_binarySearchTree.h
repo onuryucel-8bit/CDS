@@ -17,7 +17,7 @@
 typedef struct stdBinaryTreeData cdst_bst_Data;
 
 struct stdBinaryTreeData{
-    void* data;
+    int data;
     cdst_bst_Data* right;
     cdst_bst_Data* left;
 };
@@ -32,8 +32,8 @@ struct stdBinarySearchTree{
 
 cdst_binaryStree_Holder* CDS_init_bst();
 
-void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,void* data,int compare(void* idata,void* cmpData));
-void CDS_bst_remove(cdst_binaryStree_Holder* tree,void* data,int compare(void* data,void* cmpData),int compare_move(void* data,void* cmpData));
+void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(void* idata,void* cmpData));
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* data,void* cmpData));
 
 
 void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree);
