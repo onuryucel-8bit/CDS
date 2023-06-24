@@ -19,7 +19,7 @@ struct stdDynamicArray{
     unsigned int capacity;
 };
 
-cdst_array* CDS_init_dynamicArray(unsigned int capacity);
+cdst_array* CDS_dynamicArray_init(unsigned int capacity);
 
 //----------------ADD----------------//
 void CDS_dynamicArray_addLast(cdst_array* array,void* data);

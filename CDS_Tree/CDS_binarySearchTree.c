@@ -1,6 +1,6 @@
 #include "CDS_binarySearchTree.h"
 
-///FIX compare_move ifs(...)
+//--------------------------INIT-----------------------------//
 
 static cdst_bst_Data* createBst_SearchData(int data,cdst_bst_Data* right,cdst_bst_Data* left){
 
@@ -21,7 +21,7 @@ cdst_binaryStree_Holder* CDS_init_bst(){
     return newBST_Tree;
 }
 
-//------------------------------------------------------------//
+//--------------------------ADD-----------------------------//
 
 static void CDS_st_bst_recursiveAdd(cdst_bst_Data* root,int data,int compare(void* data,void* cmpData)){
 
@@ -78,7 +78,9 @@ void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(vo
 
 //------------------------REMOVE--------------------------------//
 
-
+//TODO replace int data to void* data and use compare function 24.06.23
+//TODO change name of deletedNode variable to something better 24.06.23
+//TODO split code into functions 24.06.23
 /**
 *  int compare_move()
 *       if a==b return 1;
@@ -88,9 +90,11 @@ void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(vo
 */
 void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* data,void* cmpData)){
 
-    if(tree == NULL || tree->root == NULL)return;
+    //control
+    if(tree == NULL || tree->root == NULL || compare == NULL)return;
 
     cdst_bst_Data* root = tree->root;
+
     while(root != NULL){
 
         //go right node
@@ -101,82 +105,101 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
 
                 cdst_bst_Data* deletedNode = root->right;
 
-                printf("GOING RIGHT \n");
-
-                //case 1:
+                //case 1: two node
                 if(deletedNode->right != NULL && deletedNode->left != NULL){
 
                     /*
-                    *  delete(X);
-                    *  [TREE]
-                    *    T  <-root
-                    *     \
-                    *      X <-deletedNode(root->right)
-                    *     / \
-                    *    Y   B
-                    *       / \
-                    *      C   D
-                    *     /
-                    *    E <-previous
-                    *   /
-                    *  F  <--MIN
-                    *   \
-                    *   [subtree(aka min right subtree)]
+                    * TREE
+                    *  \
+                    *   X <-deleted node
+                    *  / \
+                    * Y   B <-right subtree root
+                    *      \
+                    *       D
                     */
-
-                    //TODO if theresn't left subtree
+                    //if right subtree root doesnt have left node or subtree
                     if(deletedNode->right->left == NULL ){
-                        // x->data = b->data;
-                        // t->right = b;
-                        // free ,x
-
+                        //copy data of b to x and delete b node
                         cdst_bst_Data* minNode  = deletedNode->right;
 
                         //min node(B) have right subtree
                         if(minNode->right != NULL){
+
                             //copy data
                             deletedNode->data = minNode->data;
+                            //take right_subtree
                             cdst_bst_Data* right_Subtree = minNode->right;
+                            //free minNode
                             free(minNode);
+                            //x will be point to d node
                             deletedNode->right = right_Subtree;
                         }else{
                             //copy data
                             deletedNode->data = minNode->data;
+                            //free minNode
                             free(minNode);
+                            //point to null
                             deletedNode->right = NULL;
                         }
-                        return;
+
                     }
 
                     //if right node has left subtree
-                    if(deletedNode->right->left != NULL){
+                    else if(deletedNode->right->left != NULL){
+
 
                         cdst_bst_Data* minNode  = deletedNode->right;
                         cdst_bst_Data* previous = minNode;
 
-                        //find min node
+                        //find min node(go left nodes)
                         while(minNode->left != NULL){
                             previous = minNode;
                             minNode  = minNode->left;
                         }
-                        //printf("--- FOUND MIN NODE %i ---- \n",minNode->data);
 
-                        //if min node has right subtree
+
+                        /*
+                        *  delete(X);
+                        *  [TREE]
+                        *    T  <-root
+                        *     \
+                        *      X <-deletedNode(root->right)
+                        *     / \
+                        *    Y   B
+                        *       / \
+                        *      C   D
+                        *     /
+                        *    E <-previous
+                        *   /
+                        *  F  <--MIN
+                        *   \
+                        *   [subtree(aka min's right subtree)]
+                        */
+
+
+                        //if min node has right subtree or node
                         if(minNode->right != NULL){
+                            //copy data
                             deletedNode->data = minNode->data;
+                            //e->left = f->right(Subtree or node)
                             previous->left = minNode->right;
                             free(minNode);
-                        }else{
+                        }
+                        //if min node doesn't have right subtree or node
+                        else{
+
+                            //copy data
                             deletedNode->data = minNode->data;
+                            //freing node
                             free(minNode);
                             previous->left = NULL;
                         }
 
                     }//END node->right != NULL
-                        return;
+                    return;
                 }//END IF
 
-                //case 2:
+                //case 2: one node
                 else if(deletedNode->right != NULL || deletedNode->left != NULL){
 
                     cdst_bst_Data* subTree;
@@ -190,23 +213,27 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
                         subTree = deletedNode->left;
                     }
 
+                    //free node
                     free(deletedNode);
+                    //connect subTree to root->right
                     root->right = subTree;
 
                     return;
                 }
 
-                //case 3:
+                //case 3: leaf node
                 else if(deletedNode->right == NULL && deletedNode->left == NULL){
 
+                    //free deletedNode
                     free(deletedNode);
+                    //make root->right null
                     root->right = NULL;
                     return;
                 }
             }
 
             root = root->right;
-        }
+        }//IF END
 
         //go left node
         else{
@@ -216,10 +243,42 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
 
                 cdst_bst_Data* deletedNode = root->left;
 
-
                 //FIX: for left nodes
                 //case 1: if deletedNode have right AND left node
                 if(deletedNode->right != NULL && deletedNode->left != NULL){
+                    //find left node in left-subtree
+
+                    /*
+                    * TREE
+                    *  \
+                    *   X <-deleted node
+                    *  / \
+                    * Y   B <-min node (deleted->right)
+                    *      \
+                    *       D
+                    */
+
+                    //if right subtree root doesnt have left node or subtree
+                    //Y->LEFT == NULL if theresn't  F node
+                    if(deletedNode->right->left == NULL){
+
+                        //node b
+                        cdst_bst_Data* minNode  = deletedNode->right;
+
+                        //if min node(B) have right subtree
+                        if(minNode->right != NULL){
+                            //copy data
+                            deletedNode->data = minNode->data; //x->data = b->data
+                            cdst_bst_Data* right_Subtree = minNode->right;//subtree = b->right(D)
+                            free(minNode);
+                            deletedNode->right = right_Subtree;//x->right = subtree
+                        }else{
+                            //copy data
+                            deletedNode->data = minNode->data;
+                            free(minNode);
+                            deletedNode->right = NULL;
+                        }
+                    }
 
                     /*
                     *  delete(X);
@@ -229,43 +288,24 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
                     *          X <-deletedNode(root->right)
                     *         / \
                     *        B   Y
-                    *       / \
-                    *      C   D
-                    *     /
-                    *    E <-previous
-                    *   /
-                    *  F  <--MIN
-                    *   \
-                    *   [subtree(aka min right subtree)]
+                    *           / \
+                    *          F   D
+                    *         /
+                    *        E
+                    *         \
+                    *          H
+                    *         / \
+                    *        P   M
+                    *
                     */
 
-                    //if
-                    if(deletedNode->right->left == NULL){
-                        // x->data = b->data;
-                        // t->right = b;
-                        // free ,x
-
-                        cdst_bst_Data* minNode  = deletedNode->right;
-
-                        //min node(B) have right subtree
-                        if(minNode->right != NULL){
-                            //copy data
-                            deletedNode->data = minNode->data;
-                            cdst_bst_Data* right_Subtree = minNode->right;
-                            free(minNode);
-                            deletedNode->right = right_Subtree;
-                        }else{
-                            //copy data
-                            deletedNode->data = minNode->data;
-                            free(minNode);
-                            deletedNode->right = NULL;
-                        }
-                    }
-
                     //if right node has left subtree
-                    if(deletedNode->right->left != NULL){
+                    //x->right->left is there F node
+                    else if(deletedNode->right->left != NULL){
 
+                        //node y
                         cdst_bst_Data* minNode  = deletedNode->right;
+                        //node y
                         cdst_bst_Data* previous = minNode;
 
                         //find min node
@@ -273,22 +313,26 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
                             previous = minNode;
                             minNode  = minNode->left;
                         }
-                        //printf("--- FOUND MIN NODE %i ---- \n",minNode->data);
 
                         //if min node has right subtree
+                        //E->right != NULL
                         if(minNode->right != NULL){
-                            deletedNode->data = minNode->data;
-                            previous->left = minNode->right;
+                            //copy data
+                            deletedNode->data = minNode->data;//x->data = e->data
+                            previous->left = minNode->right;//f->left = h(node or subtree)
                             free(minNode);
                         }else{
+                            //copy data
                             deletedNode->data = minNode->data;
                             free(minNode);
                             previous->left = NULL;
                         }
 
                     }//END node->right != NULL
+
                     return;
-                }//if END
+
+                }//if END case 1:
 
                 //case 2: if theres right OR left nodes
                 else if(deletedNode->right != NULL || deletedNode->left != NULL){
@@ -323,13 +367,11 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
             }
 
             root = root->left;
-        }//IF END
-    }
+        }//ELSE END
+    }//WHILE(root != NULL) END
 }
 
-//------------------------------------------------------------//
-
-//static unsigned int indexBST = -1;
+//------------------------UTILS----------------------------------//
 
 //LEFT -- ROOT -- RIGHT
 static void bst_inOrder(cdst_bst_Data* root){
@@ -363,6 +405,44 @@ void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree){
 
 }
 
+/*
+*  if data founded return 1
+*  return -1
+*/
+int CDS_bst_searchData(cdst_binaryStree_Holder* tree,int data){
+    cdst_bst_Data* root = tree->root;
+    while(root != NULL){
+        if(data == root->data){
+            return 1;
+        }
+        else if(data >= root->right->right){
+            root = root->right;
+        }
+        else{
+            root = root->left;
+        }
+    }
+    return -1;
+}
+
+int CDS_bst_findMin(cdst_binaryStree_Holder* tree){
+    cdst_bst_Data* root = tree->root;
+    while(root->left != NULL){
+        root = root->left;
+    }
+
+    return root->data;
+}
+
+int CDS_bst_findMax(cdst_binaryStree_Holder* tree){
+    cdst_bst_Data* root = tree->root;
+    while(root->right != NULL){
+        root = root->right;
+    }
+
+    return root->data;
+}
+
 /**
 *  if empty return 1
 *  else return 0
@@ -374,11 +454,28 @@ int CDS_bst_isEmpty(cdst_binaryStree_Holder* tree){
     return 0;
 }
 
+static void st_CDS_bst_freeMemory(cdst_bst_Data* node){
+
+    if(node->left == NULL && node->right == NULL){
+        free(node);
+        return;
+    }
+    if(node == NULL){
+        return;
+    }
+
+    st_CDS_bst_freeMemory(node->left);
+
+    st_CDS_bst_freeMemory(node->right);
+
+    free(node);
+}
+
 void CDS_bst_destroy(cdst_binaryStree_Holder* tree){
 
-    //go to leaf nodes
+    if(tree == NULL)return;
 
-    //need recursive
+    st_CDS_bst_freeMemory(tree->root);
 
     free(tree);
 }
