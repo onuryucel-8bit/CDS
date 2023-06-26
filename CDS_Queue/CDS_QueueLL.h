@@ -18,13 +18,15 @@ struct stdQueue{
     cdst_queue_Data* top;
 };
 
-cdst_queue_Holder* CDS_Queue_LL_init();
-void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data);
-void CDS_Queue_LL_deQueue(cdst_queue_Holder* queue,void* data);
+cdst_queue_Holder* CDS_Queue_lil_init();
+void CDS_Queue_lil_enQueue(cdst_queue_Holder* queue,void* data);
+void CDS_Queue_lil_deQueue(cdst_queue_Holder* queue,void* data);
 
-void CDS_Queue_LL_compare();
+void CDS_Queue_lil_compare();
 
-void CDS_Queue_LL_destroy(cdst_queue_Holder* queue);
+int CDS_Queue_lil_isEmpty(cdst_queue_Holder* queue);
+
+void CDS_Queue_lil_destroy(cdst_queue_Holder* queue);
 
 
 #endif // CDS_OUEUE_LL_H

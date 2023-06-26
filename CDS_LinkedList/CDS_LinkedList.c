@@ -2,8 +2,6 @@
 
 //cdst c data structure type
 
-
-
 ///initiliaze the list struct
 cdst_linkedList_List* CDS_LinkedList_init() {
 
@@ -88,8 +86,6 @@ void CDS_LinkedList_addLast(cdst_linkedList_List* list,void* data){
     current->next = createNode(data);
 }
 
-void CDS_LinkedList_addAfterIndex(cdst_linkedList_List* list,void* data,unsigned int index){}
-void CDS_LinkedList_addAfterData(cdst_linkedList_List* list,void* data,void* indexData){}
 
 //-----------------------------------------------------------//
 //---------------------------REMOVE--------------------------//
@@ -128,10 +124,8 @@ void CDS_LinkedList_removeFirst(cdst_linkedList_List* list){
 */
 void CDS_LinkedList_removeLast(cdst_linkedList_List* list){
 
-    //check list is null
-    if(list->head == NULL){
-        return;
-    }
+    //is list null
+    if(list == NULL || list->head == NULL)return;
 
     cdst_linkedList_Data* current = list->head;
     cdst_linkedList_Data* previous = NULL;
@@ -143,20 +137,53 @@ void CDS_LinkedList_removeLast(cdst_linkedList_List* list){
         return;
     }
 
-    //!!! HATA VAR !!!!//
+    //go end of list
     while(current->next != NULL){
         previous = current;
         current = current->next;
     }
 
-    previous->next = NULL;
-    free(current);
+    //c = previous d = current
+    //A->B->C->D
+    previous->next = NULL;//c->next = null
+    free(current);//free d
 
 
 }
 
-void CDS_LinkedList_removeAfterIndex(cdst_linkedList_List* list,unsigned int index){}
-void CDS_LinkedList_removeAfterData(cdst_linkedList_List* list,void* data);
+void CDS_LinkedList_removeIndex(cdst_linkedList_List* list,unsigned int index){
+
+    unsigned int counter = 0;
+
+    //is list null
+    if(list == NULL || list->head == NULL)return;
+
+    cdst_linkedList_Data* current = list->head;
+    cdst_linkedList_Data* previous = NULL;
+
+    if (current->next == NULL && index == 0) {
+        list->head = NULL;
+        free(current);
+        return;
+    }
+
+
+    while(current->next != NULL && counter != index){
+
+        previous = current;
+        current = current->next;
+        counter++;
+    }
+
+    if(counter != index)return;
+
+    //c = previous d = current
+    //A->B->C->D
+    previous->next = NULL;//c->next = null
+    free(current);//free d
+
+}
+
 
 //-----------------------------------------------------------//
 //---------------------------UTILS---------------------------//
@@ -229,40 +256,45 @@ void CDS_LinkedList_reverse(cdst_linkedList_List* list){
 
 }
 
-/*int CDS_LinkedList_Compare(cdst_linkedList_List* list,cdst_linkedList_List* listSecond,int (*compare)(cdst_linkedList_Data* a,cdst_linkedList_Data* b)  ){
 
-    cdst_linkedList_Data* current = list->head;
-
-
-    return 0;
-}
-*/
-void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list){return 0;}
-
-
-///FIX make better this !
-/*int  CDS_LinkedList_FindElement(cdst_linkedList_List* list,void* findData,int (*compare)(cdst_linkedList_Data* a,void* b)  ){
-
-    if(list == NULL || list->head == NULL){
-        return
-    }
+int CDS_LinkedList_SearchElement(cdst_linkedList_List* list,void* data,int (*compare)(void* data, void* nodeData)){
 
     cdst_linkedList_Data* current = list->head;
 
     while(current != NULL){
-        if(compare(current,findData)){
+        if(compare(data,current->data) == 1){
             return 1;
         }
         current = current->next;
     }
-    return 0;
 
     return 0;
 }
-*/
-///yaklasik olarak [i] islemini yapar
-void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index){return 0;}
 
+/**
+*  if list or list head is equal to null then return NULL
+*  returns pointer of data
+*  if data doesnt found return NULL
+*
+*  compare MUST
+*  data == node->data return 1
+*/
+void* CDS_LinkedList_FindElement(cdst_linkedList_List* list,void* data,int (*compare)(void* data,void* nodeData) ){
+
+    //is list empty
+    if(list == NULL || list->head == NULL) return NULL;
+
+    cdst_linkedList_Data* current = list->head;
+    //traveling linked list
+    while(current != NULL){
+        //found the data
+        if(compare(data,current->data)){
+            return current->data;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
 
 unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list){
     cdst_linkedList_Data* current = list->head;
@@ -297,4 +329,3 @@ void CDS_LinkedList_destroy(cdst_linkedList_List* list){
 
 
 }
-

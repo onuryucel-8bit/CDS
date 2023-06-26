@@ -3,49 +3,30 @@
 
 #include<stdlib.h>
 
-typedef struct stdDoubleLL_Node cdst_douLL_Data;
+typedef struct stdDoubleLL_Node cdst_dou_lil_Data;
 
 struct stdDoubleLL_Node{
     void* data;
-    cdst_douLL_Data* next;
-    cdst_douLL_Data* prev;
+    cdst_dou_lil_Data* next;
+    cdst_dou_lil_Data* prev;
 };
 
-typedef struct stdDoubleLL_List cdst_douLL_List;
+typedef struct stdDoubleLL_List cdst_dou_lil_List;
 
 struct stdDoubleLL_List{
-    cdst_douLL_Data* head;
+    cdst_dou_lil_Data* head;
 };
 
 //----------INIT----------//
-cdst_douLL_List* CDS_Double_LinkedList_init();
+cdst_dou_lil_List* CDS_Double_LinkedList_init();
 
 
 //----------ADD-----------//
-void CDS_Double_LinkedList_addLast(cdst_douLL_List* list,void* data);
-/*void CDS_Double_LinkedList_addFirst(List* list,void* data);
-
-
-void CDS_Double_LinkedList_addAfterIndex(List* list,void* data,unsigned int index);
-void CDS_Double_LinkedList_addAfterData(List* list,void* data,void* indexData);
+void CDS_Double_LinkedList_addLast(cdst_dou_lil_List* list,void* data);
 
 //----------REMOVE-------//
-void CDS_Double_LinkedList_removeFirst(List* list);
-void CDS_Double_LinkedList_removeLast(List* list);
+void CDS_Double_LinkedList_removeLast(cdst_dou_lil_List* list);
 
-void CDS_Double_LinkedList_removeAfterIndex(List* list,unsigned int index);
-void CDS_Double_LinkedList_removeAfterData(List* list,void* data);
-
-//----------UTILS-------//
-int  CDS_Double_LinkedList_isEmpty(List* list);
-void CDS_Double_LinkedList_reverse(List* list);
-void CDS_Double_LinkedList_Compare(List* firstList, List* secondList);
-void* CDS_Double_LinkedList_SearchElement(List* list);
-int  CDS_Double_LinkedList_FindElement(List* list);
-
-///yaklasik olarak [i] islemini yapar
-void* CDS_Double_LinkedList_GetData(List* list,unsigned int index);
-*/
-void CDS_Double_LinkedList_destroy(cdst_douLL_List* list);
+void CDS_Double_LinkedList_destroy(cdst_dou_lil_List* list);
 
 #endif // CDS_DOUBLE_LINKED_LIST_H

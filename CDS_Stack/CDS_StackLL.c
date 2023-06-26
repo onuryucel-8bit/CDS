@@ -1,11 +1,11 @@
 #include "CDS_StackLL.h"
 
+//TODO void CDS_StackLL_compare(cdst_stack_Holder* stack,cdst_stack_Holder* cmpStack,int compare(void* data1,void* data2))
 
 static cdst_stack_Data* CDS_Stack_createNode(void* data){
 
     cdst_stack_Data* newNode = (cdst_stack_Data*)malloc(sizeof(cdst_stack_Data));
 
-    assert(newNode != NULL);
     if(newNode == NULL){
         printf("NEW node NULL\n");
         return NULL;
@@ -25,7 +25,6 @@ cdst_stack_Holder* CDS_StackLL_init(){
 
      cdst_stack_Holder* stack = (cdst_stack_Holder*)malloc(sizeof(cdst_stack_Holder));
 
-     assert(stack != NULL);
      if(stack == NULL){
         printf("NULLL");
         return NULL;
@@ -45,12 +44,9 @@ cdst_stack_Holder* CDS_StackLL_init(){
 void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
 
 ///----------------------REMOVE----------------------------//
-
+    if(stack == NULL)return;
 
     cdst_stack_Data* newNode = CDS_Stack_createNode(data);
-
-
-    assert(stack != NULL);
 
     if(stack->top == NULL){
 
@@ -65,14 +61,16 @@ void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
 
 
 }
+
+///----------------------REMOVE----------------------------//
+
 /**
 *
 *  pops the top of the stack
 */
 void CDS_StackLL_pop(cdst_stack_Holder* stack){
-    if(stack->top == NULL){
-        return;
-    }
+
+    if(stack == NULL || stack->top == NULL)return;
 
     cdst_stack_Data* oldTop = stack->top;
     stack->top = oldTop->next;
@@ -92,7 +90,7 @@ void CDS_StackLL_pop(cdst_stack_Holder* stack){
 void CDS_StackLL_compare(cdst_stack_Holder* stack,cdst_stack_Holder* cmpStack,int compare(void* data1,void* data2)){
 
     if(stack == NULL || stack->top == NULL || cmpStack == NULL || cmpStack->top == NULL){
-        return -1;
+        return;
     }
 
     cdst_stack_Data* current = stack->top;
@@ -104,13 +102,13 @@ void CDS_StackLL_compare(cdst_stack_Holder* stack,cdst_stack_Holder* cmpStack,in
         cmpCurrent = cmpCurrent->next;
 
         if(current == NULL || cmpCurrent == NULL){
-            return 0;
+            return;
         }
     }
 }
 
 /**
-*  returns top of stack
+*  returns top of stack data
 */
 void* CDS_StackLL_top(cdst_stack_Holder* stack){
     return stack->top->data;

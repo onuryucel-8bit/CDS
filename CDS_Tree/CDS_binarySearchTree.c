@@ -1,5 +1,10 @@
 #include "CDS_binarySearchTree.h"
 
+///BST_remove-------
+//TODO replace int data to void* data and use compare function 24.06.23
+//TODO change name of deletedNode variable to something better 24.06.23
+//TODO split code into functions 24.06.23
+
 //--------------------------INIT-----------------------------//
 
 static cdst_bst_Data* createBst_SearchData(int data,cdst_bst_Data* right,cdst_bst_Data* left){
@@ -23,13 +28,13 @@ cdst_binaryStree_Holder* CDS_init_bst(){
 
 //--------------------------ADD-----------------------------//
 
-static void CDS_st_bst_recursiveAdd(cdst_bst_Data* root,int data,int compare(void* data,void* cmpData)){
+static void CDS_st_bst_recursiveAdd(cdst_bst_Data* root,int data){
 
     //go right subtree
     if(data >= root->data){
 
         if(root->right != NULL){
-            CDS_st_bst_recursiveAdd(root->right,data,compare);
+            CDS_st_bst_recursiveAdd(root->right,data);
         }else{
 
             root->right = createBst_SearchData(data,NULL,NULL);
@@ -41,7 +46,7 @@ static void CDS_st_bst_recursiveAdd(cdst_bst_Data* root,int data,int compare(voi
     else if(data < root->data){
 
         if(root->left != NULL){
-            CDS_st_bst_recursiveAdd(root->left,data,compare);
+            CDS_st_bst_recursiveAdd(root->left,data);
         }else{
 
             root->left = createBst_SearchData(data,NULL,NULL);
@@ -60,7 +65,7 @@ static void CDS_st_bst_recursiveAdd(cdst_bst_Data* root,int data,int compare(voi
 *          if a>=b return 0;
 *          if a<b return -1;
 */
-void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(void* data,void* cmpData2)){
+void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data){
 
     //if tree is empty make input to root of tree
     if(tree->root == NULL){
@@ -73,14 +78,11 @@ void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(vo
     }
 
     //call recursive func
-    CDS_st_bst_recursiveAdd(tree->root,data,compare);
+    CDS_st_bst_recursiveAdd(tree->root,data);
 }
 
 //------------------------REMOVE--------------------------------//
 
-//TODO replace int data to void* data and use compare function 24.06.23
-//TODO change name of deletedNode variable to something better 24.06.23
-//TODO split code into functions 24.06.23
 /**
 *  int compare_move()
 *       if a==b return 1;
@@ -88,10 +90,10 @@ void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(vo
 *       if a<b return -1;previous->left = minNode->right;
 *
 */
-void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* data,void* cmpData)){
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data){
 
     //control
-    if(tree == NULL || tree->root == NULL || compare == NULL)return;
+    if(tree == NULL || tree->root == NULL)return;
 
     cdst_bst_Data* root = tree->root;
 
@@ -373,7 +375,7 @@ void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* dat
 
 //------------------------UTILS----------------------------------//
 
-//LEFT -- ROOT -- RIGHT
+//LEFT---ROOT---RIGHT
 static void bst_inOrder(cdst_bst_Data* root){
 
 
@@ -405,6 +407,47 @@ void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree){
 
 }
 
+//ROOT---LEFT---RIGHT
+static void sta_bst_preOrder(cdst_bst_Data* root){
+
+    if(root == NULL)return;
+
+    printf("%i \n",root->data);
+    sta_bst_preOrder(root->left);
+    sta_bst_preOrder(root->right);
+
+}
+
+void CDS_bst_traversal_preOrder(cdst_binaryStree_Holder* tree){
+
+    //if(tree == NULL)return;
+
+    sta_bst_preOrder(tree->root);
+}
+
+//LEFT---RIGHT---ROOT
+static void sta_bst_postOrder(cdst_bst_Data* root){
+
+    if(root == NULL)return;
+
+    sta_bst_postOrder(root->left);
+    sta_bst_postOrder(root->right);
+    printf("%i \n",root->data);
+}
+
+void CDS_bst_traversal_postOrder(cdst_binaryStree_Holder* tree){
+    sta_bst_postOrder(tree->root);
+}
+
+//BFS
+void CDS_bst_traversal_bfs(cdst_binaryStree_Holder* tree){
+    cdst_queue_Holder* queue = CDS_Queue_lil_init();
+
+    //code here
+
+    CDS_Queue_lil_destroy(queue);
+}
+
 /*
 *  if data founded return 1
 *  return -1
@@ -415,7 +458,7 @@ int CDS_bst_searchData(cdst_binaryStree_Holder* tree,int data){
         if(data == root->data){
             return 1;
         }
-        else if(data >= root->right->right){
+        else if(data >= root->right->data){
             root = root->right;
         }
         else{
@@ -453,6 +496,8 @@ int CDS_bst_isEmpty(cdst_binaryStree_Holder* tree){
     }
     return 0;
 }
+
+//------DESTROY----//
 
 static void st_CDS_bst_freeMemory(cdst_bst_Data* node){
 

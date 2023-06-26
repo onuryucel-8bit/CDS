@@ -4,6 +4,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+#include"../CDS_Queue/CDS_QueueLL.h"
+
 ///TODO void CDS_bst_traversal_preOrder(cdst_binaryStree_Holder* tree);
 ///TODO void CDS_bst_traversal_postOrder(cdst_binaryStree_Holder* tree);
 ///TODO void CDS_bst_traversal_bfs();
@@ -27,15 +29,17 @@ struct stdBinarySearchTree{
 
 cdst_binaryStree_Holder* CDS_init_bst();
 
-void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data,int compare(void* idata,void* cmpData));
-void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data,int compare(void* data,void* cmpData));
+void CDS_bst_add_recursive(cdst_binaryStree_Holder* tree,int data);
+void CDS_bst_remove(cdst_binaryStree_Holder* tree,int data);
 
+//Depth First Search
 void CDS_bst_traversal_inOrder(cdst_binaryStree_Holder* tree);
 void CDS_bst_traversal_preOrder(cdst_binaryStree_Holder* tree);
 void CDS_bst_traversal_postOrder(cdst_binaryStree_Holder* tree);
 
-void CDS_bst_traversal_bfs();
-void CDS_bst_traversal_dfs();
+//Level Order Traversal using Queue
+void CDS_bst_traversal_bfs(cdst_binaryStree_Holder* tree);
+
 
 int CDS_bst_findMax(cdst_binaryStree_Holder* tree);
 int CDS_bst_findMin(cdst_binaryStree_Holder* tree);

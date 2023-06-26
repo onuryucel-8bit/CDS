@@ -1,6 +1,7 @@
 #include "CDS_DynamicArray.h"
 
 //TODO void CDS_dynamicArray_removeElement(cdst_array* array,void* data) add resize code
+//TODO void CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata))
 
 //21.05.23 tested
 static cdst_array_Data* createArrayData(unsigned int size){
@@ -210,7 +211,7 @@ void  CDS_dynamicArray_clearAll(cdst_array* array){
 }
 
 void  CDS_dynamicArray_resize(cdst_array* array){
-     cdst_array* newArray = CDS_init_dynamicArray(array->capacity + 10);
+     cdst_array* newArray = CDS_dynamicArray_init(array->capacity + 10);
 
      for(int i = 0; i < array->index; i++){
         newArray->arrayHead[i].data = array->arrayHead[i].data;

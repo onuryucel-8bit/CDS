@@ -2,14 +2,12 @@
 #define CDS_LINKED_LIST_H
 
 #include<stdlib.h>
-#include<errno.h>
 
-///FIX CDS_LinkedList_removeLast
+///1.TEST 24.06.23
 
-///TODO CDS_LinkedList_GetData
-///TODO CDS_LinkedList_removeAfterIndex
-///TODO CDS_LinkedList_removeAfterData
-///TODO CDS_LinkedList_SearchElement
+//TODO compare 24.06.23
+//TODO sort 24.06.23
+//TODO not IMPORTANT!! void CDS_LinkedList_addIndex(cdst_linkedList_List* list,void* data,void* indexData);
 
 typedef struct stdLinkedList_Node cdst_linkedList_Data;
 
@@ -31,17 +29,16 @@ cdst_linkedList_List* CDS_LinkedList_init();
 void CDS_LinkedList_addFirst(cdst_linkedList_List* list,void* data);
 void CDS_LinkedList_addLast(cdst_linkedList_List* list,void* data);
 
-void CDS_LinkedList_addAfterIndex(cdst_linkedList_List* list,void* data,unsigned int index);
-void CDS_LinkedList_addAfterData(cdst_linkedList_List* list,void* data,void* indexData);
-
+//void CDS_LinkedList_addIndex(cdst_linkedList_List* list,void* data,void* indexData);
 //----------REMOVE-------//
 void CDS_LinkedList_removeFirst(cdst_linkedList_List* list);
 void CDS_LinkedList_removeLast(cdst_linkedList_List* list);
 
-void CDS_LinkedList_removeAfterIndex(cdst_linkedList_List* list,unsigned int index);
-void CDS_LinkedList_removeAfterData(cdst_linkedList_List* list,void* data);
+void CDS_LinkedList_removeIndex(cdst_linkedList_List* list,unsigned int index);
 
 //----------UTILS-------//
+
+//isEmpty
 int  CDS_LinkedList_isEmpty(cdst_linkedList_List* list);
 
 //reverse list with recursive
@@ -50,18 +47,19 @@ void CDS_LinkedList_reverseRec(cdst_linkedList_List* list);
 //reverse list with two pointers
 void CDS_LinkedList_reverse(cdst_linkedList_List* list);
 
-void CDS_LinkedList_Compare(cdst_linkedList_List* firstList, cdst_linkedList_List* secondList);
-void* CDS_LinkedList_SearchElement(cdst_linkedList_List* list);
-int  CDS_LinkedList_FindElement(cdst_linkedList_List* list);
+//compare
+int CDS_LinkedList_Compare();
 
-//print data char format
-//void CDS_LinkedList_toChar(cdst_linkedList_List* list,char translate() );
+//search
+int CDS_LinkedList_SearchElement(cdst_linkedList_List* list,void* data,int (*compare)(void* data, void* nodeData));
 
-///yaklasik olarak [i] islemini yapar
-void* CDS_LinkedList_GetData(cdst_linkedList_List* list,unsigned int index);
+//find
+void*  CDS_LinkedList_FindElement(cdst_linkedList_List* list,void* data ,int (*compare)(void* data, void* nodeData));
 
+//count
 unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list);
 
+//destroy
 void CDS_LinkedList_destroy(cdst_linkedList_List* list);
 
 #endif

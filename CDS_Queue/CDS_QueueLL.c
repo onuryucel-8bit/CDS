@@ -3,7 +3,12 @@
 
 #include"CDS_QueueLL.h"
 
-cdst_queue_Holder* CDS_Queue_LL_init(){
+//core functions finished except compare 26.06.23
+
+//TODO add additional functions reverse,count...
+//TODO void CDS_Queue_lil_compare()
+
+cdst_queue_Holder* CDS_Queue_lil_init(){
     cdst_queue_Holder* newQueue = malloc(sizeof(cdst_queue_Holder));
 
     if(!newQueue){
@@ -28,7 +33,11 @@ static cdst_queue_Data* queue_CreateNode(void* data){
     return newNode;
 }
 
-void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data){
+/**
+*  adding element to end of linked list
+*  head will be "top"
+*/
+void CDS_Queue_lil_enQueue(cdst_queue_Holder* queue,void* data){
 
     cdst_queue_Data* newNode = queue_CreateNode(data);
 
@@ -37,6 +46,7 @@ void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data){
         return;
     }
 
+    //a->b->c head queue is a
     cdst_queue_Data* current = queue->top;
     while(current->next != NULL){
         current = current->next;
@@ -46,22 +56,38 @@ void CDS_Queue_LL_enQueue(cdst_queue_Holder* queue,void* data){
 
 }
 
-void CDS_Queue_LL_deQueue(cdst_queue_Holder* queue,void* data){
+void CDS_Queue_lil_deQueue(cdst_queue_Holder* queue,void* data){
     if(queue->top == NULL){
         return;
     }
 
-    cdst_queue_Data* current = queue->top;
+    //a->b->c->d top of queue is a
 
-    current = current->next;
+    cdst_queue_Data* current = queue->top;//current = a;
 
-    free(queue->top);
+    current = current->next;//current points out b now;
 
-    queue->top = current;
+    free(queue->top);//free node a
+
+    queue->top = current;//make the current top of queue
 
 }
 
-void CDS_Queue_LL_destroy(cdst_queue_Holder* queue){
+void CDS_Queue_lil_compare(){
+}
+
+/**
+*  if queue empty return 1
+*  else return 0
+*/
+int CDS_Queue_lil_isEmpty(cdst_queue_Holder* queue){
+
+    if(queue->top == NULL)return 1;
+
+    return 0;
+}
+
+void CDS_Queue_lil_destroy(cdst_queue_Holder* queue){
 
     cdst_queue_Data* current = queue->top;
     cdst_queue_Data* nextNode = current;
