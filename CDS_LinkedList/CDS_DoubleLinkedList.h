@@ -18,15 +18,24 @@ struct stdDoubleLL_List{
 };
 
 //----------INIT----------//
+
 cdst_dou_lil_List* CDS_Double_LinkedList_init();
 
-
 //----------ADD-----------//
+
 void CDS_Double_LinkedList_addLast(cdst_dou_lil_List* list,void* data);
+void CDS_Double_LinkedList_addFirst(cdst_dou_lil_List* list,void* data);
+void CDS_Double_LinkedList_addIndex(cdst_dou_lil_List* list,void* data,unsigned int index);
 
 //----------REMOVE-------//
-void CDS_Double_LinkedList_removeLast(cdst_dou_lil_List* list);
 
+void CDS_Double_LinkedList_removeLast(cdst_dou_lil_List* list);
+void CDS_Double_LinkedList_removeFirst(cdst_dou_lil_List* list);
+void CDS_Double_LinkedList_removeIndex(cdst_dou_lil_Data* list ,unsigned int index);
+
+//--------UTILS-------//
+
+//destroy
 void CDS_Double_LinkedList_destroy(cdst_dou_lil_List* list);
 
 #endif // CDS_DOUBLE_LINKED_LIST_H
