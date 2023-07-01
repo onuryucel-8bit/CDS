@@ -5,6 +5,8 @@
 #include"../CDS_Array/CDS_DynamicArray.h"
 
 //lil = (li)nked (l)ist
+///LEARN: variant list
+
 typedef struct stdGraphAdjan cdst_graph_lil;
 
 struct stdGraphAdjan{
@@ -17,9 +19,11 @@ void CDS_graph_lil_add(cdst_graph_lil* graph,int data);
 
 void CDS_graph_lil_remove();
 
+int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data);
+
 void CDS_graph_lil_bfs();
 void CDS_graph_lil_dfs();
 
-void CDS_graph_lil_destroy();
+void CDS_graph_lil_destroy(cdst_graph_lil* graph);
 
 #endif // CDS_GRAPH_H

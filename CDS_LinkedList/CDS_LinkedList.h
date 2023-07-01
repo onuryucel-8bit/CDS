@@ -50,6 +50,9 @@ void CDS_LinkedList_reverse(cdst_linkedList_List* list);
 //compare
 int CDS_LinkedList_Compare();
 
+//sort
+void CDS_linkedlist_sort(cdst_linkedList_List* list,int (*compare)(void* data,void* cmp_data) );
+
 //search
 int CDS_LinkedList_SearchElement(cdst_linkedList_List* list,void* data,int (*compare)(void* data, void* nodeData));
 

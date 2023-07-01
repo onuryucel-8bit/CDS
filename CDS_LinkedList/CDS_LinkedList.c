@@ -296,6 +296,9 @@ void* CDS_LinkedList_FindElement(cdst_linkedList_List* list,void* data,int (*com
     return NULL;
 }
 
+/**
+*  it will return total number of nodes
+*/
 unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list){
     cdst_linkedList_Data* current = list->head;
     unsigned int i = 0;
@@ -305,6 +308,43 @@ unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list){
     }
     return i;
 }
+
+/**
+*   bubble sort
+*
+*   DEFINE Compare func(a,b)
+*   if (a > b) return 1 OR if (a >= b) return 1
+*   else return 0
+*/
+void CDS_linkedlist_sort(cdst_linkedList_List* list,int (*compare)(void* data,void* cmp_data) ){
+
+    if(list == NULL || list->head == NULL || list->head->next == NULL)return;
+
+    cdst_linkedList_Data* current = list->head;
+    cdst_linkedList_Data* nextNode = NULL;
+    void* tempData = NULL;
+
+    unsigned int size = CDS_LinkedList_countList(list);
+
+    for(int i = 0;i < size - 1; i++){
+
+        for(int j = 0; j < size - i - 1; j++){
+
+            current = list->head;
+            nextNode = current->next;
+
+            if(compare(current->data,nextNode->data)){
+                tempData = current->data;
+                current->data = nextNode->data;
+                nextNode->data = tempData;
+            }
+
+        }//for j end
+
+    }//for i end
+
+}
+
 
 ///it frees linked list
 void CDS_LinkedList_destroy(cdst_linkedList_List* list){

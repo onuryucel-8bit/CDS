@@ -1,9 +1,9 @@
+//tested without compare function 28.06.23
 #ifndef CDS_STACK_LL_H
 #define CDS_STACK_LL_H
 
 #include<stdlib.h>
 #include<stdio.h>
-//#include<assert.h>
 
 ///TODO stack compare functions 11.06.23
 

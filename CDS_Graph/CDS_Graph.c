@@ -24,11 +24,49 @@ void CDS_graph_lil_add(cdst_graph_lil* graph,int data){
 
     if(graph == NULL)return;
 
-    //cdst_array* array = graph->adjan_list;
+    /*
+    *   array
+    *     0   -->list_0
+    *     1   -->list_1
+    *     .
+    *     .
+    *
+    */
+    if(graph->adjan_list->arrayHead == NULL){
 
-    //array[i]
+        graph->adjan_list = CDS_dynamicArray_init(5);
 
-    //CDS_LinkedList_addLast(array_cell,(void*)data);
+        //CDS_dynamicArray_addLast(graph->adjan_list,data);
 
-    //CDS_LinkedList_addLast(graph.array,int data);
+        return;
+    }
+
+    if(CDS_graph_lil_find_in_array(graph,data))return;
+
+    //CDS_dynamicArray_addLast(graph->adjan_list,data);
+
 }
+
+int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data){
+
+    if(graph == NULL)return 0;
+
+    unsigned int ARRAY_SIZE = graph->adjan_list->index;
+
+    for(int i = 0; i <ARRAY_SIZE;i++){
+            //if(data == *(int*)(graph->adjan_list->arrayHead[i])) {
+            //return 1;
+        //}
+    }
+
+    return 0;
+}
+
+
+
+void CDS_graph_lil_destroy(cdst_graph_lil* graph){
+    free(graph);
+}
+
+
+
