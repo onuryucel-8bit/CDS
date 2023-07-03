@@ -1,4 +1,4 @@
-#include "CDS_infixtoPostfix.h"
+#include "CDS_app_infixtoPostfix.h"
 
 ///FIX STACK 09.06.23!
 
@@ -174,5 +174,3 @@ void infix_to_postfix(char* infix){
     //frees stack
     CDS_StackLL_destroy(stack);
 }
-
-

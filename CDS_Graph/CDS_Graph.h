@@ -15,7 +15,8 @@ struct stdGraphAdjan{
 
 void CDS_graph_lil_init();
 
-void CDS_graph_lil_add(cdst_graph_lil* graph,int data);
+void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data);
+
 
 void CDS_graph_lil_remove();
 

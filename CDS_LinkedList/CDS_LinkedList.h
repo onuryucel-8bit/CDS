@@ -4,9 +4,10 @@
 #include<stdlib.h>
 
 ///1.TEST 24.06.23
+///sort 24.06.23 DONE 03.07.23
+
 
 //TODO compare 24.06.23
-//TODO sort 24.06.23
 //TODO not IMPORTANT!! void CDS_LinkedList_addIndex(cdst_linkedList_List* list,void* data,void* indexData);
 
 typedef struct stdLinkedList_Node cdst_linkedList_Data;

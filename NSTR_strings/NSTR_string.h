@@ -4,6 +4,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+//TODO 03.07.23 void NSTR_reverseStr(char* str);
+//TODO 03.07.23 double NSTR_toNumberDecimal_double(char* str)
+
 void NSTR_free_str(char* str);
 
 char* NSTR_subStr(char* str,unsigned int start,unsigned int end);

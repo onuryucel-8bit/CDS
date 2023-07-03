@@ -316,33 +316,42 @@ unsigned int CDS_LinkedList_countList(cdst_linkedList_List* list){
 *   if (a > b) return 1 OR if (a >= b) return 1
 *   else return 0
 */
-void CDS_linkedlist_sort(cdst_linkedList_List* list,int (*compare)(void* data,void* cmp_data) ){
+void CDS_linkedlist_sort(cdst_linkedList_List* list, int (*compare)(void* data, void* cmp_data)) {
 
-    if(list == NULL || list->head == NULL || list->head->next == NULL)return;
+    //check for error
+    if (list == NULL || list->head == NULL || list->head->next == NULL) {
+        return;
+    }
 
-    cdst_linkedList_Data* current = list->head;
-    cdst_linkedList_Data* nextNode = NULL;
-    void* tempData = NULL;
+    cdst_linkedList_Data* current;
+    cdst_linkedList_Data* nextNode;
+    void* tempData;
 
+    //get the size of linked list
     unsigned int size = CDS_LinkedList_countList(list);
 
-    for(int i = 0;i < size - 1; i++){
 
-        for(int j = 0; j < size - i - 1; j++){
+    for (int i = 0; i < size - 1; i++) {
 
-            current = list->head;
-            nextNode = current->next;
+        //move the next node
+        current = list->head;
+        nextNode = current->next;
 
-            if(compare(current->data,nextNode->data)){
-                tempData = current->data;
-                current->data = nextNode->data;
-                nextNode->data = tempData;
+        for (int j = 0; j < size - i - 1; j++) {
+
+            //compare
+            if (compare(current->data, nextNode->data)) {
+                //swap data
+                tempData = current->data;      //temp = a;
+                current->data = nextNode->data;//a = b;
+                nextNode->data = tempData;     //b = temp;
             }
 
-        }//for j end
-
-    }//for i end
-
+            //move the next node
+            current = nextNode;
+            nextNode = nextNode->next;
+        }
+    }
 }
 
 

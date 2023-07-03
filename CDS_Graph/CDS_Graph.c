@@ -20,8 +20,13 @@ void CDS_graph_lil_init(){
     //return graph;
 }
 
-void CDS_graph_lil_add(cdst_graph_lil* graph,int data){
+void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int node, ...){
 
+}
+
+void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data){
+
+    //check for error
     if(graph == NULL)return;
 
     /*
@@ -32,18 +37,21 @@ void CDS_graph_lil_add(cdst_graph_lil* graph,int data){
     *     .
     *
     */
+    //if array empty
     if(graph->adjan_list->arrayHead == NULL){
 
+        //create array
         graph->adjan_list = CDS_dynamicArray_init(5);
 
-        //CDS_dynamicArray_addLast(graph->adjan_list,data);
+        //add data
+        CDS_dynamicArray_addLast(graph->adjan_list,data);
 
         return;
     }
 
     if(CDS_graph_lil_find_in_array(graph,data))return;
 
-    //CDS_dynamicArray_addLast(graph->adjan_list,data);
+    CDS_dynamicArray_addLast(graph->adjan_list,data);
 
 }
 
@@ -53,20 +61,19 @@ int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data){
 
     unsigned int ARRAY_SIZE = graph->adjan_list->index;
 
-    for(int i = 0; i <ARRAY_SIZE;i++){
-            //if(data == *(int*)(graph->adjan_list->arrayHead[i])) {
-            //return 1;
-        //}
-    }
 
     return 0;
 }
 
-
-
 void CDS_graph_lil_destroy(cdst_graph_lil* graph){
+
+    //destroy list
+    for(int i = 0; i < graph->adjan_list->capacity; i++){
+        //CDS_LinkedList_destroy(graph->adjan_list->arrayHead[i]); ???
+    }
+
+    //destroy array
+    CDS_dynamicArray_destroy(graph->adjan_list);
+    //destroy graph
     free(graph);
 }
-
-
-

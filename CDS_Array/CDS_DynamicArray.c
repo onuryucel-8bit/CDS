@@ -217,13 +217,13 @@ void  CDS_dynamicArray_resize(cdst_array* array){
         newArray->arrayHead[i].data = array->arrayHead[i].data;
      }
 
-     CDS_destroy_dynamicArray(array);
+     CDS_dynamicArray_destroy(array);
 
      array = newArray;
 }
 
 //21.05.23
-void  CDS_destroy_dynamicArray(cdst_array* dataPack){
+void  CDS_dynamicArray_destroy(cdst_array* dataPack){
 
    if(dataPack == NULL) return;
 

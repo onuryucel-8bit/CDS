@@ -5,7 +5,7 @@
 #include<stdio.h>
 #include<string.h>
 #include"../NSTR_strings/NSTR_string.h"
-#include"CDS_StackLL.h"
+#include"../CDS_Stack/CDS_StackLL.h"
 
 int get_precedence(char a);
 

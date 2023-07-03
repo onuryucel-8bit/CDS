@@ -47,7 +47,7 @@ void  CDS_dynamicArray_resize();
 //void  CDS_dynamicArray_findMax(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
 //void  CDS_dynamicArray_findMin(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
 
-void  CDS_destroy_dynamicArray(cdst_array* dataPack);
+void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
 
 #endif
