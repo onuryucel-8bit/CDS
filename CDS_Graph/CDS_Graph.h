@@ -4,6 +4,9 @@
 #include"../CDS_LinkedList/CDS_LinkedList.h"
 #include"../CDS_Array/CDS_DynamicArray.h"
 
+#include<stdarg.h>
+#include<stdlib.h>
+
 //lil = (li)nked (l)ist
 ///LEARN: variant list
 

@@ -3,20 +3,20 @@
 
 #include<stdlib.h>
 
-typedef struct stdCircularLL_Node cdst_circLL_Data;
+typedef struct stdCircularLL_Node cdst_circ_lil_Data;
 
 struct stdCircularLL_Node{
     void* data;
     cdst_circLL_Data* next;
 };
 
-typedef struct stdCircularLL_List cdst_circLL_List;
+typedef struct stdCircularLL_List cdst_circ_lil_List;
 
 struct stdCircularLL_List{
     cdst_circLL_Data* head;
 };
 
-void CDS_Circular_LinkedList_init();
+cdst_circ_lil_List* CDS_Circular_LinkedList_init();
 
 //---------------ADD----------------//
 

@@ -20,8 +20,9 @@ void CDS_graph_lil_init(){
     //return graph;
 }
 
-void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int node, ...){
-
+void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n, ...){
+    va_list args;
+    va_start(args,n);
 }
 
 void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data){
@@ -44,14 +45,14 @@ void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data){
         graph->adjan_list = CDS_dynamicArray_init(5);
 
         //add data
-        CDS_dynamicArray_addLast(graph->adjan_list,data);
+        //CDS_dynamicArray_addLast(graph->adjan_list,data);
 
         return;
     }
 
     if(CDS_graph_lil_find_in_array(graph,data))return;
 
-    CDS_dynamicArray_addLast(graph->adjan_list,data);
+    //CDS_dynamicArray_addLast(graph->adjan_list,data);
 
 }
 
@@ -59,7 +60,7 @@ int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data){
 
     if(graph == NULL)return 0;
 
-    unsigned int ARRAY_SIZE = graph->adjan_list->index;
+    //unsigned int ARRAY_SIZE = graph->adjan_list->index;
 
 
     return 0;
