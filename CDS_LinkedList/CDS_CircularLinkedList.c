@@ -21,6 +21,8 @@ cdst_circ_lil_List* CDS_Circular_LinkedList_init(){
     return list;
 }
 
+//------------ADD-----
+
 void CDS_Circular_LinkedList_addLast(cdst_circ_lil_List* list,void* data){
 
     cdst_circ_lil_Data* newNode = sta_circ_lil_createNode(data);
@@ -45,3 +47,31 @@ void CDS_Circular_LinkedList_addLast(cdst_circ_lil_List* list,void* data){
 
 }
 
+//------------REMOVE-----
+
+void CDS_circular_linkedlist_removeLast(cdst_circ_lil_List* list){
+
+    if(list == NULL)return;
+
+    cdst_circ_lil_Data* current = list->head;
+
+    if(current->next == list->head){
+
+        free(list->head);
+
+        return;
+    }
+
+    cdst_circ_lil_Data* pre = current;
+
+    while(current->next != list->head){
+        pre = current;
+        current = current->next;
+    }
+
+    free(current);
+
+    pre->next = list->head;
+
+
+}

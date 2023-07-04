@@ -16,17 +16,9 @@ struct stdGraphAdjan{
     cdst_array* adjan_list;
 };
 
-void CDS_graph_lil_init();
+//cdst_graph_lil* CDS_graph_lil_init();
 
 void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data);
-
-
-void CDS_graph_lil_remove();
-
-int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data);
-
-void CDS_graph_lil_bfs();
-void CDS_graph_lil_dfs();
 
 void CDS_graph_lil_destroy(cdst_graph_lil* graph);
 

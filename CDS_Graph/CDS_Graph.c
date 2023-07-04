@@ -1,6 +1,6 @@
 #include"CDS_Graph.h"
 
-void CDS_graph_lil_init(){
+cdst_graph_lil* CDS_graph_lil_init(){
 
     int size = 5;
     cdst_array* new_adjaceny_array = CDS_dynamicArray_init(size);
@@ -17,12 +17,51 @@ void CDS_graph_lil_init(){
 
     graph->adjan_list = new_adjaceny_array;
 
-    //return graph;
+    return graph;
+}
+
+int compare_std_func(void* data_1,void* data_2){
+    int a = *(int*)data_1;
+    int b = *(int*)data_2;
+
+    if(a == b)return 1;
+    return 0;
 }
 
 void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n, ...){
+
     va_list args;
     va_start(args,n);
+
+    //check nodes if there inside the adjan list
+    for(int i = 0; i < n; i++){
+        void* node =(void*)(va_arg(args,int));
+
+        //if they not put inside adjan list
+        if(CDS_dynamicArray_searchElement(graph->adjan_list,node,compare_std_func) == 0 ){
+            CDS_dynamicArray_addLast(graph->adjan_list,node);
+
+            //connect with source node
+            /*
+            *  let SOURCE NODE : c
+            *  a->c
+            *  b->c
+            *  c->
+            */
+        }
+    }
+
+
+    //find the source node index in adjan list
+    /*
+    *  let SOURCE NODE : c
+    *  a->c
+    *  b->c
+    *  c->a->b
+    */
+    //connect with others
+
+
 }
 
 void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data){
@@ -50,21 +89,11 @@ void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data){
         return;
     }
 
-    if(CDS_graph_lil_find_in_array(graph,data))return;
-
     //CDS_dynamicArray_addLast(graph->adjan_list,data);
 
 }
 
-int CDS_graph_lil_find_in_array(cdst_graph_lil* graph,int data){
 
-    if(graph == NULL)return 0;
-
-    //unsigned int ARRAY_SIZE = graph->adjan_list->index;
-
-
-    return 0;
-}
 
 void CDS_graph_lil_destroy(cdst_graph_lil* graph){
 

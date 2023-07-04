@@ -4,7 +4,7 @@
 //TODO void CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata))
 
 //21.05.23 tested
-static cdst_array_Data* createArrayData(unsigned int size){
+cdst_array_Data* createArrayData(unsigned int size){
     cdst_array_Data* newData = malloc(sizeof(cdst_array_Data) * size);
 
     if(newData == NULL){
@@ -45,7 +45,7 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data){
 
     //if array is full, resize the array
     if(array->index >= array->capacity){
-        CDS_dynamicArray_resize();
+        //CDS_dynamicArray_resize();
     }
 
     //put data to end of the array
@@ -116,6 +116,10 @@ void* CDS_dynamicArray_getElement(cdst_array* array,unsigned int index){
 /**
 *   if findData inside of array return 1;
 *   else return 0;
+*
+*   DEFINE FUNCTION COMPARE(void*,void*)
+*   if(a==b)return 1
+*   return 0
 */
 int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(void* element1,void* element2)){
 
