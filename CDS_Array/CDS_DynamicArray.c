@@ -5,6 +5,7 @@
 
 //21.05.23 tested
 cdst_array_Data* createArrayData(unsigned int size){
+
     cdst_array_Data* newData = malloc(sizeof(cdst_array_Data) * size);
 
     if(newData == NULL){
@@ -224,6 +225,21 @@ void  CDS_dynamicArray_resize(cdst_array* array){
      CDS_dynamicArray_destroy(array);
 
      array = newArray;
+}
+
+cdst_array_Data* CDS_dynamicArray_getLastElement(cdst_array* array){
+    if(array == NULL)return NULL;
+
+    return array->arrayHead[array->index - 1].data;
+}
+
+void CDS_dynamicArray_test_print(cdst_array* array){
+
+    if(array == NULL)return;
+
+    for(int i = 0; i < array->index; i++){
+        printf("%i", *(int*)(array->arrayHead[i].data));
+    }
 }
 
 //21.05.23
