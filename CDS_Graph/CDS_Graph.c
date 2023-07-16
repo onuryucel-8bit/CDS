@@ -54,23 +54,42 @@ void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n,
     va_list args;
     va_start(args,n);
 
+    //is source node valid
+    if(!CDS_dynamicArray_searchElement(graph->adjan_list,(void*)source,compare_std_func))return;
+
+
     //check for connection errors !!
         //code here
 
+    //change with dynamic array
+    void* node[5]; int index = 0;
 
+    //connect nodes to the source node
     for(int i = 0; i < n; i++){
 
         //find the source node
-        cdst_graph_interface_node* interface_node = (cdst_graph_interface_node*)CDS_dynamicArray_findElement(graph->adjan_list,source,compare_std_func);
+        cdst_graph_interface_node* interface_node = (cdst_graph_interface_node*)CDS_dynamicArray_findElement(graph->adjan_list,(void*)source,compare_std_func);
 
         //check error
         if(interface_node == NULL) return;
 
         //take node name
         void* connect_node = (void*)va_arg(args,int);
+        node[index] = connect_node;
+        index++;
 
         //connect the source to node_t
         CDS_LinkedList_addLast(interface_node->linked_list_connection,connect_node);
+    }
+
+
+    //make connection node_t to the source node
+    for(int i = 0; i < n; i++){
+
+        //if they dont exist in array, create and put inside the array
+        if(!CDS_dynamicArray_searchElement(graph->adjan_list,node[i],compare_std_func)){
+            CDS_graph_lil_addNode(graph,(int*)node[i]);
+        }
     }
     va_end(args);
 }

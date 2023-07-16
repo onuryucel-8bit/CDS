@@ -39,6 +39,8 @@ cdst_array_Data* CDS_dynamicArray_getLastElement(cdst_array* array);
 
 void CDS_dynamicArray_test_print(cdst_array* array);
 
+void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
+
 //transforms default array to CDS dynamic arrays
 //void  CDS_dynamicArray_transformTo_darray(cdst_dynamic_Array* array,unsigned int size);
 
