@@ -9,7 +9,10 @@
 
 //lil = (li)nked (l)ist
 ///LEARN: variant list
+
+//---------GRAPH STRUCTURE---------
 /*
+
     graph_lil ===> array ==> array->arrayHead[i].data ==>
 
     -->grap_interface_node => linkedlist
@@ -31,6 +34,8 @@ struct stdGraphAdjan{
 cdst_graph_lil* CDS_graph_lil_init();
 
 void CDS_graph_lil_addNode(cdst_graph_lil* graph,int data);
+
+void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n, ...);
 
 void CDS_graph_lil_destroy(cdst_graph_lil* graph);
 

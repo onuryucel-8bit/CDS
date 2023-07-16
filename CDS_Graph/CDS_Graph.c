@@ -12,7 +12,6 @@ static cdst_graph_interface_node* sta_create_graph_node_interface(int nodeName){
     return newNode;
 }
 
-
 /**
 *  it will return graph with ALL(adjanceny_array.data = NULL)
 */
@@ -33,80 +32,71 @@ cdst_graph_lil* CDS_graph_lil_init(){
     return graph;
 }
 
+static cdst_graph_interface_node* to_graph_interfaceNode(void* data){
+    return (cdst_graph_interface_node*)(data);
+}
+
 int compare_std_func(void* data_1,void* data_2){
-    int a = *(int*)data_1;
-    int b = *(int*)data_2;
+    int a = to_graph_interfaceNode(data_1)->node_name; //interface node name
+    int b = (int*)data_2; //int
+
 
     if(a == b)return 1;
     return 0;
 }
 
+/**
+* n amount of nodes
+* ... connection nodes
+*/
 void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n, ...){
 
     va_list args;
     va_start(args,n);
 
-    //check nodes if there inside the adjan list
+    //check for connection errors !!
+        //code here
+
+
     for(int i = 0; i < n; i++){
 
-        void* node = malloc(sizeof(int));
+        //find the source node
+        cdst_graph_interface_node* interface_node = (cdst_graph_interface_node*)CDS_dynamicArray_findElement(graph->adjan_list,source,compare_std_func);
 
-        if(node == NULL)return;
+        //check error
+        if(interface_node == NULL) return;
 
-        node = (void*)(va_arg(args,int));
+        //take node name
+        void* connect_node = (void*)va_arg(args,int);
 
-        //if they not put inside adjan list
-        if(CDS_dynamicArray_searchElement(graph->adjan_list,node,compare_std_func) == 0 ){
-
-            CDS_dynamicArray_addLast(graph->adjan_list,node);
-
-            //connect with source node
-            /*
-            *  let SOURCE NODE == c
-            *  a->c
-            *  b->c
-            *  c->
-            */
-
-            cdst_array_Data* array = CDS_dynamicArray_getLastElement(graph->adjan_list);
-
-            //create linked list
-            cdst_linkedList_List* list = CDS_LinkedList_init();
-            //connect with source node
-            CDS_LinkedList_addLast(list,node);
-
-            //add list to adjan array list
-            array->data = list;
-        }
+        //connect the source to node_t
+        CDS_LinkedList_addLast(interface_node->linked_list_connection,connect_node);
     }
-
-
-    //find the source node index in adjan list
-    /*
-    *  let SOURCE NODE : c
-    *  a->c
-    *  b->c
-    *  c->a->b
-    */
-    //connect with others
-
-
+    va_end(args);
 }
 
-
+//16.07.23 checked
+/**
+*  adding node to graph
+*/
 void CDS_graph_lil_addNode(cdst_graph_lil* graph,int nodeName){
 
     //check for error
     if(graph == NULL)return;
 
+    //create new interface node
     cdst_graph_interface_node* newNode = sta_create_graph_node_interface(nodeName);
 
+    //create linked list
     cdst_linkedList_List* linkedList = CDS_LinkedList_init();
 
+    //check error
     //if newnode == null or linkedlist == null return;
 
+    //connect linked list to interface node
     newNode->linked_list_connection = linkedList;
 
+    //add list to adjan array
     CDS_dynamicArray_addLast(graph->adjan_list,newNode);
 
 }
@@ -115,7 +105,14 @@ void CDS_graph_test_print(cdst_graph_lil* graph){
 
     for(int i = 0; i < graph->adjan_list->index; i++){
         cdst_graph_interface_node* node = (cdst_graph_interface_node*)(graph->adjan_list->arrayHead[i].data );
-        printf("%i \n",  node->node_name );
+        printf("array: NODE NAME %i \n",  node->node_name );
+
+        cdst_linkedList_Data* current = node->linked_list_connection->head;
+        while(current != NULL){
+            printf("  list_data:%i", (int*)(current->data));
+            current = current->next;
+        }
+        printf("\n");
     }
 }
 
@@ -124,7 +121,7 @@ void CDS_graph_lil_destroy(cdst_graph_lil* graph){
     //destroy list
     //(int i = 0; i < graph->adjan_list->capacity; i++){
         //CDS_LinkedList_destroy(graph->adjan_list->arrayHead[i]); ???
-    //}
+    //
 
     //destroy array
     //CDS_dynamicArray_destroy(graph->adjan_list);

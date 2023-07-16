@@ -103,7 +103,7 @@ void CDS_dynamicArray_removeElementIndex(cdst_array* array,void* data,unsigned i
 /**
 *   array[i]
 */
-void* CDS_dynamicArray_getElement(cdst_array* array,unsigned int index){
+void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index){
 
     if(array == NULL || array->arrayHead == NULL) return NULL;
 
