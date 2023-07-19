@@ -4,7 +4,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define DEBUG 1
+#define DEBUG   1
+#define DEBUG_2 0
+#define DEBUG_RESIZE 0
 
 //TODO add find min,max value func
 //TODO resize func
@@ -12,23 +14,17 @@
 //TODO removeIndex func
 //TODO sort func
 
-typedef struct stdDataCell cdst_array_Data;
+typedef struct std_cds_DynamicArray cdst_array;
 
-struct stdDataCell{
-    void* data;
-};
+struct std_cds_DynamicArray{
 
-typedef struct stdDynamicArray cdst_array;
-
-struct stdDynamicArray{
-
-    cdst_array_Data* arrayHead;
+    void* head;
     unsigned int index;
     unsigned int capacity;
     char statusFlag;
 };
 
-cdst_array* CDS_dynamicArray_init(unsigned int capacity);
+cdst_array* CDS_dynamicArray_init(size_t capacity);
 
 //----------------ADD----------------//
 
@@ -46,7 +42,7 @@ void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index);
 //return i
 int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
-cdst_array_Data* CDS_dynamicArray_getLastElement(cdst_array* array);
+void* CDS_dynamicArray_getLastElement(cdst_array* array);
 
 void CDS_dynamicArray_test_print(cdst_array* array);
 

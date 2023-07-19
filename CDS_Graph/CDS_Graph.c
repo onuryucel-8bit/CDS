@@ -122,7 +122,7 @@ void CDS_graph_lil_addNode(cdst_graph_lil* graph,int nodeName){
 
 void CDS_graph_test_print(cdst_graph_lil* graph){
 
-    for(int i = 0; i < graph->adjan_list->index; i++){
+    /*for(int i = 0; i < graph->adjan_list->index; i++){
         cdst_graph_interface_node* node = (cdst_graph_interface_node*)(graph->adjan_list->arrayHead[i].data );
         printf("array: NODE NAME %i \n",  node->node_name );
 
@@ -132,7 +132,7 @@ void CDS_graph_test_print(cdst_graph_lil* graph){
             current = current->next;
         }
         printf("\n");
-    }
+    }*/
 }
 
 void CDS_graph_lil_destroy(cdst_graph_lil* graph){
