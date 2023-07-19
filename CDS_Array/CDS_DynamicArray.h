@@ -4,6 +4,14 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+#define DEBUG 1
+
+//TODO add find min,max value func
+//TODO resize func
+//TODO addIndex func
+//TODO removeIndex func
+//TODO sort func
+
 typedef struct stdDataCell cdst_array_Data;
 
 struct stdDataCell{
@@ -17,22 +25,25 @@ struct stdDynamicArray{
     cdst_array_Data* arrayHead;
     unsigned int index;
     unsigned int capacity;
+    char statusFlag;
 };
 
 cdst_array* CDS_dynamicArray_init(unsigned int capacity);
 
 //----------------ADD----------------//
+
 void CDS_dynamicArray_addLast(cdst_array* array,void* data);
-void CDS_dynamicArray_addIndex(cdst_array* array,void* data,unsigned int index);
 
 //--------------REMOVE---------------//
+
 void CDS_dynamicArray_removeElement(cdst_array* array,void* data);
-void CDS_dynamicArray_removeElementIndex(cdst_array* array,void* data,unsigned int index);
 
 //---------------UTILS---------------//
 
+//return a[i]
 void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index);
-int   CDS_dynamicArray_getIndex(cdst_array* array,void* data,int compare(void* element1,void* element2));
+
+//return i
 int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
 cdst_array_Data* CDS_dynamicArray_getLastElement(cdst_array* array);
@@ -41,11 +52,9 @@ void CDS_dynamicArray_test_print(cdst_array* array);
 
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
-//transforms default array to CDS dynamic arrays
-//void  CDS_dynamicArray_transformTo_darray(cdst_dynamic_Array* array,unsigned int size);
+void  CDS_dynamicArray_resize(cdst_array** array,char up_down);
 
-//void  CDS_dynamicArray_findMax(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
-//void  CDS_dynamicArray_findMin(cdst_dynamic_Array* array,int compare(void* data1, void* data2));
+void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata));
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
