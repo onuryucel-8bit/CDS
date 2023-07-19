@@ -14,7 +14,7 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
         ( (void**)(newArray->head) )[i] = NULL;
     }
     //check error
-    if(newArray->head == NULL)return;
+    if(newArray->head == NULL)return NULL;
 
     newArray->capacity = capacity;
     newArray->index = 0;
@@ -26,6 +26,7 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
 //----------------ADD----------------//
 
 void CDS_dynamicArray_addLast(cdst_array* array,void* data){
+
     ((void**)(array->head))[array->index] = data;
     array->index ++;
 }
@@ -35,17 +36,25 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data){
 /**
 *  remove last element
 */
-void CDS_dynamicArray_removeElement(cdst_array* array,void* data){
-
+void CDS_dynamicArray_removeLast(cdst_array* array){
+    ( (void**)(array->head) )[array->index - 1] = NULL;
+    array->index --;
 }
 
 //---------------UTILS---------------//
 
 /**
-*   array[i]
+*   return array[i]
 */
 void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index){
+    return ((void**)(array->head))[index];
+}
 
+/**
+*   return array[index-1]
+*/
+void* CDS_dynamicArray_getLastElement(cdst_array* array){
+    return ((void**)(array->head))[array->index - 1];
 }
 
 /**
@@ -58,6 +67,15 @@ void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index){
 */
 int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(void* element1,void* element2)){
 
+    //searching in array
+    for(int i = 0; i < array->index; i++){
+        //compare
+        if(compare( ( (void**)(array->head) )[i]  , findData)  ){
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 /**
@@ -66,28 +84,24 @@ int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(
 */
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2)){
 
+    //search in array
+    for(int i = 0; i < array->index; i++){
+        //compare
+        if(compare( ((void**)(array->head) )[i]  , findData)  ){
+            return ((void**)(array->head) )[i];
+        }
+    }
+
+    return NULL;
 }
 
-void* CDS_dynamicArray_getLastElement(cdst_array* array){
-
-}
 
 void CDS_dynamicArray_test_print(cdst_array* array){
     for(int i = 0; i < array->index;i++){
-        int* element = ((int**)(array->head))[i];
+        //int* element = ((int**)(array->head))[i];
         printf("%i \n",*(((int**)(array->head))[i]));
     }
-}
-
-/**
-*   char: up_down
-*     if up_down == 1 resize up
-*     else resize down
-*
-*/
-void  CDS_dynamicArray_resize(cdst_array** array,char up_down){
-
-
+    printf("*****\n");
 }
 
 /**

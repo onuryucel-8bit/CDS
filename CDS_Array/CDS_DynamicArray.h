@@ -32,7 +32,7 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data);
 
 //--------------REMOVE---------------//
 
-void CDS_dynamicArray_removeElement(cdst_array* array,void* data);
+void CDS_dynamicArray_removeLast(cdst_array* array);
 
 //---------------UTILS---------------//
 
@@ -48,7 +48,7 @@ void CDS_dynamicArray_test_print(cdst_array* array);
 
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
-void  CDS_dynamicArray_resize(cdst_array** array,char up_down);
+
 
 void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata));
 
