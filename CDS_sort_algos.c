@@ -1,5 +1,9 @@
 #include"CDS_sort_algos.h"
 
+void CDS_sort_insertion(int arr[],size_t size){
+
+}
+
 /**
 * A->en buyuk eleman dizinin sonuna itilir
 *

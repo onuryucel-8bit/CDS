@@ -99,7 +99,8 @@ void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(
 void CDS_dynamicArray_test_print(cdst_array* array){
     for(int i = 0; i < array->index;i++){
         //int* element = ((int**)(array->head))[i];
-        printf("%i \n",*(((int**)(array->head))[i]));
+        printf("%i ptr : %p \n",*(((int**)(array->head))[i]),(((int**)(array->head))[i]));
+
     }
     printf("*****\n");
 }
@@ -109,8 +110,40 @@ void CDS_dynamicArray_test_print(cdst_array* array){
 *  if findData > array.data   return 1
 *  else if findData <= array.data return 0
 *
+*  bubble_sort
 */
 void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata)){
+
+    void* temp = NULL;
+    size_t size_arr = array->index;
+
+    for(size_t i = 0;i < size_arr - 1; i++){
+
+        for(size_t j = 0; j < size_arr - i - 1; j++){
+
+            if(compare(((void**)(array->head) )[j] ,((void**)(array->head) )[j+1])){
+                #if DEBUG_sort
+                    printf("DEBUG started : !!\n");
+                    printf("temp   %p \n",temp);
+                    printf("a[j]   %p \n",((void**)(array->head))[j]);
+                    printf("a[j+1] %p \n",((void**)(array->head))[j+1]);
+                #endif
+
+
+                temp = ((void**)(array->head))[j];
+                ((void**)(array->head) )[j] = ((void**)(array->head) )[j+1];
+                ((void**)(array->head) )[j+1]= temp;
+                #if DEBUG_sort
+                    printf("finished : !!\n");
+                    printf("temp   %p \n",temp);
+                    printf("a[j]   %p \n",((void**)(array->head))[j]);
+                    printf("a[j+1] %p \n",((void**)(array->head))[j+1]);
+                #endif
+            }
+
+        }//for j end
+
+    }//for i end
 
 }
 

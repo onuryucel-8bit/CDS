@@ -88,7 +88,7 @@ void CDS_graph_lil_connectNodes(cdst_graph_lil* graph,int source,unsigned int n,
 
         //if they dont exist in array, create and put inside the array
         if(!CDS_dynamicArray_searchElement(graph->adjan_list,node[i],compare_std_func)){
-            CDS_graph_lil_addNode(graph,(int*)node[i]);
+            //CDS_graph_lil_addNode(graph,(int*)node[i]);
         }
     }
     va_end(args);

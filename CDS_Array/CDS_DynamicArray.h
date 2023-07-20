@@ -7,6 +7,7 @@
 #define DEBUG   1
 #define DEBUG_2 0
 #define DEBUG_RESIZE 0
+#define DEBUG_sort 1
 
 //TODO add find min,max value func
 //TODO resize func
@@ -48,9 +49,7 @@ void CDS_dynamicArray_test_print(cdst_array* array);
 
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
-
-
-void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdata));
+void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sdata));
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
