@@ -4,16 +4,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define DEBUG   1
-#define DEBUG_2 0
-#define DEBUG_RESIZE 0
-#define DEBUG_sort 1
-
-//TODO add find min,max value func
-//TODO resize func
 //TODO addIndex func
 //TODO removeIndex func
-//TODO sort func
 
 typedef struct std_cds_DynamicArray cdst_array;
 
@@ -28,6 +20,8 @@ struct std_cds_DynamicArray{
 cdst_array* CDS_dynamicArray_init(size_t capacity);
 
 //----------------ADD----------------//
+
+void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data);
 
 void CDS_dynamicArray_addLast(cdst_array* array,void* data);
 
@@ -50,6 +44,8 @@ void CDS_dynamicArray_test_print(cdst_array* array);
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
 void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sdata));
+
+void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 

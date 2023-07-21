@@ -25,6 +25,20 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
 
 //----------------ADD----------------//
 
+/**
+*  if index >= array.length addLast()
+*  array[index] = data
+*/
+void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data){
+
+    if(index >= array->index){
+        CDS_dynamicArray_addLast(array,data);
+        return;
+    }
+
+    ((void**)(array->head))[index] = data;
+}
+
 void CDS_dynamicArray_addLast(cdst_array* array,void* data){
 
     ((void**)(array->head))[array->index] = data;
@@ -95,7 +109,6 @@ void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(
     return NULL;
 }
 
-
 void CDS_dynamicArray_test_print(cdst_array* array){
     for(int i = 0; i < array->index;i++){
         //int* element = ((int**)(array->head))[i];
@@ -122,28 +135,22 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdat
         for(size_t j = 0; j < size_arr - i - 1; j++){
 
             if(compare(((void**)(array->head) )[j] ,((void**)(array->head) )[j+1])){
-                #if DEBUG_sort
-                    printf("DEBUG started : !!\n");
-                    printf("temp   %p \n",temp);
-                    printf("a[j]   %p \n",((void**)(array->head))[j]);
-                    printf("a[j+1] %p \n",((void**)(array->head))[j+1]);
-                #endif
-
 
                 temp = ((void**)(array->head))[j];
                 ((void**)(array->head) )[j] = ((void**)(array->head) )[j+1];
                 ((void**)(array->head) )[j+1]= temp;
-                #if DEBUG_sort
-                    printf("finished : !!\n");
-                    printf("temp   %p \n",temp);
-                    printf("a[j]   %p \n",((void**)(array->head))[j]);
-                    printf("a[j+1] %p \n",((void**)(array->head))[j+1]);
-                #endif
+
             }
 
         }//for j end
 
     }//for i end
+
+}
+
+void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data){
+
+    ((void**)(array->head))[index] = data;
 
 }
 
