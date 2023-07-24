@@ -9,12 +9,14 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
     }
 
     newArray->head = malloc(sizeof(void*) * capacity);
+
+    //check error
+    if(newArray->head == NULL)return NULL;
+
     for(int i = 0; i < capacity; i++){
           //convert void pointer to .pointer to pointer
         ( (void**)(newArray->head) )[i] = NULL;
     }
-    //check error
-    if(newArray->head == NULL)return NULL;
 
     newArray->capacity = capacity;
     newArray->index = 0;
@@ -26,8 +28,8 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
 //----------------ADD----------------//
 
 /**
-*  if index >= array.length addLast()
-*  array[index] = data
+*  put element to desired index and shift elements
+*  if index is out of bounds it will add element to end of array
 */
 void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data){
 
@@ -35,6 +37,8 @@ void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data){
         CDS_dynamicArray_addLast(array,data);
         return;
     }
+
+    sta_dynamic_array_shiftRight(array,index);
 
     ((void**)(array->head))[index] = data;
 }
@@ -112,7 +116,7 @@ void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(
 void CDS_dynamicArray_test_print(cdst_array* array){
     for(int i = 0; i < array->index;i++){
         //int* element = ((int**)(array->head))[i];
-        printf("%i ptr : %p \n",*(((int**)(array->head))[i]),(((int**)(array->head))[i]));
+        printf("element %i ptr : %p \n",*(((int**)(array->head))[i]),(((int**)(array->head))[i]));
 
     }
     printf("*****\n");
@@ -152,6 +156,18 @@ void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data){
 
     ((void**)(array->head))[index] = data;
 
+}
+
+static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
+    //check capacity error
+
+    //check if array capacity enough
+
+    void* temp = NULL;
+    //shift
+    for(int i = array->index - 1; i > index; i--){
+        ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
+    }
 }
 
 void  CDS_dynamicArray_destroy(cdst_array* array){

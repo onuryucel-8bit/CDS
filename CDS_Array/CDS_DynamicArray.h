@@ -47,6 +47,8 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sd
 
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
 
+static void sta_dynamic_array_shiftRight(cdst_array* array, size_t index);
+
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
 
