@@ -4,8 +4,11 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+#define DEBUG_SHIFT_RIGHT 1
+
 //TODO addIndex func
 //TODO removeIndex func
+//check realloc, malloc errors if(malloc(s) == null) return
 
 typedef struct std_cds_DynamicArray cdst_array;
 
@@ -37,14 +40,17 @@ void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index);
 //return i
 int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
+//return object
 void* CDS_dynamicArray_getLastElement(cdst_array* array);
 
 void CDS_dynamicArray_test_print(cdst_array* array);
 
+//return object
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
 void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sdata));
 
+//array[i] = data
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
 
 static void sta_dynamic_array_shiftRight(cdst_array* array, size_t index);
