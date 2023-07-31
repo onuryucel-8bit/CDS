@@ -11,10 +11,12 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
 
     newArray->head = malloc(sizeof(void*) * capacity);
 
+
     //null ptr check
     if(newArray->head == NULL){
         return NULL;
     }
+
 
     for(int i = 0; i < capacity; i++){
           //convert void pointer to .pointer to pointer
