@@ -4,9 +4,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define DEBUG_SHIFT_RIGHT 1
+#define DEBUG_RESIZE 1
 
-//TODO addIndex func
 //TODO removeIndex func
 //check realloc, malloc errors if(malloc(s) == null) return
 
@@ -30,6 +29,8 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data);
 
 //--------------REMOVE---------------//
 
+void CDS_dynamicArray_removeIndex(cdst_array* array, size_t index);
+
 void CDS_dynamicArray_removeLast(cdst_array* array);
 
 //---------------UTILS---------------//
@@ -48,12 +49,11 @@ void CDS_dynamicArray_test_print(cdst_array* array);
 //return object
 void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(void* element1,void* element2));
 
+//bubble sort
 void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sdata));
 
 //array[i] = data
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
-
-static void sta_dynamic_array_shiftRight(cdst_array* array, size_t index);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 

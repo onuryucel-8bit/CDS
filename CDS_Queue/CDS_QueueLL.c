@@ -1,6 +1,3 @@
-#ifndef CDS_QUEUE_H
-#define CDS_QUEUE_H
-
 #include"CDS_QueueLL.h"
 
 //core functions finished except compare 26.06.23
@@ -73,7 +70,7 @@ void CDS_Queue_lil_deQueue(cdst_queue_Holder* queue,void* data){
 
 }
 
-void CDS_Queue_lil_compare(){
+void CDS_Queue_lil_compare(cdst_q){
 }
 
 /**
@@ -101,5 +98,3 @@ void CDS_Queue_lil_destroy(cdst_queue_Holder* queue){
     free(queue);
     queue->top = NULL;
 }
-
-#endif // CDS_QUEUE_H

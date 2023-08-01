@@ -1,4 +1,52 @@
 #include "CDS_DynamicArray.h"
+//----------STATIC--------------------//
+
+/**
+*  size > 0 resize up
+*
+*  size < 0 resize down
+*
+*/
+static void sta_dynamicArray_resize(cdst_array* array,int size){
+
+    #ifdef DEBUG_RESIZE
+        printf("HEY!!\n");
+    #endif // DEBUG
+
+    void* new_head = realloc(array->head,array->capacity + size);
+
+    array->head = new_head;
+    array->capacity += size;
+    if(size > 0)
+        array->index++;
+    else
+        array->index--;
+}
+
+static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
+
+    //check if array capacity enough for operation
+    if(array->index + 1 >= array->capacity){
+
+        sta_dynamicArray_resize(array,array->capacity + 5);
+    }
+
+    //shift
+    for(int i = array->index - 1; i >= index; i--){
+        ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
+    }
+}
+
+static void sta_dynamic_array_shiftLeft(cdst_array* array, size_t index){
+    //check error
+
+    //resize
+
+    //shift
+    for(int i = index ; i <= array->index; i++){
+        ((void**)(array->head))[i] = ((void**)(array->head))[i + 1];
+    }
+}
 
 cdst_array* CDS_dynamicArray_init(size_t capacity){
 
@@ -49,23 +97,52 @@ void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data){
 }
 
 void CDS_dynamicArray_addLast(cdst_array* array,void* data){
+
+    //error check
     if(array == NULL || array->head == NULL)return;
 
+    //put data
     ((void**)(array->head))[array->index] = data;
+
+    //increment index
     array->index ++;
+
+    //resize
+    if(array->index >= array->capacity){
+        sta_dynamicArray_resize(array,array->capacity + 5);
+    }
 }
 
 //--------------REMOVE---------------//
+
+void CDS_dynamicArray_removeIndex(cdst_array* array, size_t index){
+
+    //check error
+    if(index >= array->index || array == NULL || array->head == NULL)return;
+
+    //delete
+    ((void**)array->head)[index] = NULL;
+
+    //shift left
+    sta_dynamic_array_shiftLeft(array,index);
+
+    array->index--;
+
+}
 
 /**
 *  remove last element
 */
 void CDS_dynamicArray_removeLast(cdst_array* array){
 
+    //error check
     if(array == NULL || array->head == NULL)return;
 
     ( (void**)(array->head) )[array->index - 1] = NULL;
     array->index --;
+
+    //resize code here
+
 }
 
 //---------------UTILS---------------//
@@ -181,6 +258,9 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdat
 
 }
 
+/**
+*   array[index] = data
+*/
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data){
 
     if(array == NULL || array->head == NULL)return;
@@ -194,34 +274,5 @@ void  CDS_dynamicArray_destroy(cdst_array* array){
     free(array);
 
     array = NULL;
-}
-
-//----------STATIC--------------------//
-
-static void sta_dynamicArray_resize(cdst_array* array){
-
-    void* new_head = realloc(array->head,array->capacity + 5);
-
-    array->head = new_head;
-    array->capacity += 5;
-    array->index++;
-}
-
-static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
-
-    //check if array capacity enough for operation
-    if(array->index + 1 >= array->capacity){
-
-        #ifdef DEBUG_SHIFT_RIGHT
-            printf("HEY!!\n");
-        #endif // DEBUG
-
-        sta_dynamicArray_resize(array);
-    }
-
-    //shift
-    for(int i = array->index - 1; i >= index; i--){
-        ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
-    }
 }
 
