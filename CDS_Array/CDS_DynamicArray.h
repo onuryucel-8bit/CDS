@@ -32,6 +32,8 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data);
 
 void CDS_dynamicArray_removeLast(cdst_array* array);
 
+void CDS_dynamicArray_removeIndex(cdst_array* array,size_t index);
+
 //---------------UTILS---------------//
 
 //return a[i]
@@ -52,8 +54,6 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sd
 
 //array[i] = data
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
-
-static void sta_dynamic_array_shiftRight(cdst_array* array, size_t index);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 

@@ -1,5 +1,46 @@
 #include "CDS_DynamicArray.h"
 
+//----------STATIC--------------------//
+
+static void sta_dynamicArray_resize(cdst_array* array){
+
+    void* new_head = realloc(array->head,array->capacity + 5);
+
+    array->head = new_head;
+    array->capacity += 5;
+    array->index++;
+}
+
+static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
+
+    //check if array capacity enough for operation
+    if(array->index + 1 >= array->capacity){
+
+        #ifdef DEBUG_SHIFT_RIGHT
+            printf("HEY!!\n");
+        #endif // DEBUG
+
+        sta_dynamicArray_resize(array);
+    }
+
+    //shift
+    for(int i = array->index - 1; i >= index; i--){
+        ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
+    }
+}
+
+static void sta_dynamic_array_shiftLeft(cdst_array* array,size_t index){
+
+    //check error
+
+    //resize array
+
+    //shift
+    for(int i = index; i <= array->index; i++){
+        ((void**)(array->head))[i] = ((void**)(array->head))[i + 1];
+    }
+}
+
 cdst_array* CDS_dynamicArray_init(size_t capacity){
 
     cdst_array* newArray = malloc(sizeof(cdst_array));
@@ -56,6 +97,16 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data){
 }
 
 //--------------REMOVE---------------//
+
+void CDS_dynamicArray_removeIndex(cdst_array* array,size_t index){
+    //check error
+    if(index >= array->index)return;
+    //delete
+    ((void**)array->head)[array->index] = NULL;
+    //shift
+    sta_dynamic_array_shiftLeft(array,index);
+}
+
 
 /**
 *  remove last element
@@ -196,32 +247,4 @@ void  CDS_dynamicArray_destroy(cdst_array* array){
     array = NULL;
 }
 
-//----------STATIC--------------------//
-
-static void sta_dynamicArray_resize(cdst_array* array){
-
-    void* new_head = realloc(array->head,array->capacity + 5);
-
-    array->head = new_head;
-    array->capacity += 5;
-    array->index++;
-}
-
-static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
-
-    //check if array capacity enough for operation
-    if(array->index + 1 >= array->capacity){
-
-        #ifdef DEBUG_SHIFT_RIGHT
-            printf("HEY!!\n");
-        #endif // DEBUG
-
-        sta_dynamicArray_resize(array);
-    }
-
-    //shift
-    for(int i = array->index - 1; i >= index; i--){
-        ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
-    }
-}
 
