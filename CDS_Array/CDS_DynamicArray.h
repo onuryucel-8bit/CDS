@@ -4,10 +4,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define DEBUG_SHIFT_RIGHT 1
+#define DEBUG 1
+#define DEFAULT_RESIZE_AMOUNT 5
 
-//TODO addIndex func
-//TODO removeIndex func
 //check realloc, malloc errors if(malloc(s) == null) return
 
 typedef struct std_cds_DynamicArray cdst_array;
@@ -17,9 +16,9 @@ struct std_cds_DynamicArray{
     void* head;
     unsigned int index;
     unsigned int capacity;
-    char statusFlag;
+    size_t resize_amount;
 };
-
+//,size_t resize_amount
 cdst_array* CDS_dynamicArray_init(size_t capacity);
 
 //----------------ADD----------------//
