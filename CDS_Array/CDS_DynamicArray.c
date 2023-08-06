@@ -2,15 +2,19 @@
 
 //----------STATIC--------------------//
 
+/**
+*   size can only be 1 or -1
+*   1 resize up
+*  -1 resize down
+*
+*   resize_amount is size_t type
+*/
 static void sta_dynamicArray_resize(cdst_array* array,char size){
 
-    /**
-    *   size can only be 1 or -1
-    *   1 resize up
-    *  -1 resize down
-    *
-    *   resize_amount is size_t type
-    */
+    #ifdef DEBUG_SHIFT_RIGHT_CAPS
+        printf("DEBUG :: array cap %u \n", array->capacity);
+    #endif
+
     //resize_amount error check
     void* new_head = NULL;
 
@@ -31,6 +35,11 @@ static void sta_dynamicArray_resize(cdst_array* array,char size){
         array->capacity += DEFAULT_RESIZE_AMOUNT;
     }
 
+
+    #ifdef DEBUG_SHIFT_RIGHT_CAPE
+        printf("DEBUG :: array cap %u \n", array->capacity);
+    #endif
+
     //assigning new head
     array->head = new_head;
 
@@ -38,14 +47,25 @@ static void sta_dynamicArray_resize(cdst_array* array,char size){
 
 static void sta_dynamic_array_shiftRight(cdst_array* array,size_t index){
 
-    //check if array capacity enough for operation
+    //check if array capacity not enough for operation
     if(array->index + 1 >= array->capacity){
-
-        //sta_dynamicArray_resize(array);
+        //resize
+        sta_dynamicArray_resize(array,1);
     }
 
     //shift
-    for(int i = array->index - 1; i >= index; i--){
+
+    //these variables for unsigned int problems
+    /*
+    *  let say i = 0
+    *  i-=2;
+    *  then i will be 4564... (big number)
+    *
+    */
+    int s = index;
+    int i = array->index - 1;
+
+    for(; i >= s; i--){
         ((void**)(array->head))[i + 1] = ((void**)(array->head))[i];
     }
 }
@@ -113,7 +133,7 @@ void CDS_dynamicArray_addIndex(cdst_array* array,size_t index,void* data){
         return;
     }
 
-    //shift
+    //shift + resize
     sta_dynamic_array_shiftRight(array,index);
 
     //add data
@@ -180,20 +200,28 @@ void CDS_dynamicArray_removeIndex(cdst_array* array,size_t index){
     array->index--;
 }
 
-
 /**
 *  remove last element
 */
 void CDS_dynamicArray_removeLast(cdst_array* array){
 
+    //error check
     if(array == NULL || array->head == NULL)return;
 
+    //TODO free memory
+    //delete
     ( (void**)(array->head) )[array->index - 1] = NULL;
     array->index --;
+
+    //TODO rezise
+    if(array->index == 0){
+
+    }
+
+
 }
 
 //---------------UTILS---------------//
-
 
 //--LAST ELEMENT--//
 /**
@@ -310,6 +338,19 @@ void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data){
     if(array == NULL || array->head == NULL)return;
     ((void**)(array->head))[index] = data;
 
+}
+
+/**
+*  its checks array->head is empty
+*
+*/
+int CDS_dynamicArray_isEmpty(cdst_array* array){
+
+    if(array->head == NULL){
+        return CDS_TRUE;
+    }
+
+    return CDS_FALSE;
 }
 
 void  CDS_dynamicArray_destroy(cdst_array* array){

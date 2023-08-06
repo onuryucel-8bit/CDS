@@ -4,8 +4,17 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+#define CDS_FALSE 0
+#define CDS_TRUE 1
+
 #define DEBUG 1
+#define DEBUG_SHIFT_RIGHT_CAPS
+
+#define DEBUG_SHIFT_RIGHT_CAPE 1
+
 #define DEFAULT_RESIZE_AMOUNT 5
+
+//TODO !!! when data deleted free from memory
 
 //check realloc, malloc errors if(malloc(s) == null) return
 
@@ -53,6 +62,8 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sd
 
 //array[i] = data
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
+
+int CDS_dynamicArray_isEmpty(cdst_array* array);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
