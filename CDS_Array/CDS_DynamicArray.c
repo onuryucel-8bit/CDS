@@ -225,6 +225,7 @@ void CDS_dynamicArray_removeLast(cdst_array* array){
 
 //--LAST ELEMENT--//
 /**
+*   it will return i index of address element
 *   return array[i]
 */
 void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index){
@@ -235,6 +236,7 @@ void* CDS_dynamicArray_getElement_byIndex(cdst_array* array,unsigned int index){
 }
 
 /**
+*   it will return last address of element
 *   return array[index-1]
 */
 void* CDS_dynamicArray_getLastElement(cdst_array* array){
