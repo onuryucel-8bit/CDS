@@ -209,8 +209,9 @@ void CDS_dynamicArray_removeLast(cdst_array* array){
     if(array == NULL || array->head == NULL)return;
 
     //TODO free memory
+
     //delete
-    ( (void**)(array->head) )[array->index - 1] = NULL;
+    free(( (void**)(array->head) )[array->index - 1]);
     array->index --;
 
     //TODO rezise
@@ -271,6 +272,10 @@ int CDS_dynamicArray_searchElement(cdst_array* array,void* findData,int compare(
 }
 
 /**
+*   DEFINE FUNC(void*, void*)
+*       if a == b return 1
+*       else return 0
+*
 *   if findData inside of array return pointer of findData
 *   else return NULL
 */
@@ -356,6 +361,10 @@ int CDS_dynamicArray_isEmpty(cdst_array* array){
 }
 
 void  CDS_dynamicArray_destroy(cdst_array* array){
+
+    for(int i = 0; i < array->index; i++){
+        free(((void**)(array->head) )[i]);
+    }
 
     free(array->head);
     free(array);

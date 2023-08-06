@@ -23,22 +23,27 @@ int main(){
 
     cdst_array* array = CDS_dynamicArray_init(5);
 
-    int a[]={16,20,34,48};
-    for(int i = 0; i < sizeof(a) / sizeof(int); i++){
+    int* a = (int*)malloc(5 * sizeof(int));
+    a[0] = 2;
+    a[1] = 45;
+    a[2] = 75;
+    a[3] = 56;
+    a[4] = 32;
+    for(int i = 0; i < 5; i++){
         CDS_dynamicArray_addLast(array,&a[i]);
     }
 
     //------//
     CDS_dynamicArray_test_print(array);
 
-    int test_int_add = 10;
+   /* int test_int_add = 10;
     printf("==== addLast 10 ==== \n");
     CDS_dynamicArray_addLast(array,&test_int_add);
 
     //------//
     CDS_dynamicArray_test_print(array);
 
-    CDS_dynamicArray_sort(array,standart_int_compare);
+    /*CDS_dynamicArray_sort(array,standart_int_compare);
 
     printf("==== removeLast 10 ==== \n");
     CDS_dynamicArray_removeLast(array);
@@ -69,11 +74,14 @@ int main(){
     //-----//
     CDS_dynamicArray_test_print(array);
 
-    printf("TEST :: func changeData \n");
+    printf("TEST :: func changeData :: change index 0 data with 99 \n");
     int test_int_changeData = 99;
     CDS_dynamicArray_changeData(array,0,&test_int_changeData);
+
     //-----//
     CDS_dynamicArray_test_print(array);
+
+    printf("TEST:: findElement func parameter test_int_changeData %i: %p \n",test_int_changeData,CDS_dynamicArray_findElement(array,&test_int_changeData,standart_int_compare));
 
     printf("sorting..\n");
     CDS_dynamicArray_sort(array,standart_int_sort_compare);
@@ -81,6 +89,14 @@ int main(){
 
     //-----//
     CDS_dynamicArray_test_print(array);
-
+*/
+    printf("%p \n", array);
+    printf("%p \n", array->head);
+    printf("%p \n", ((void**)(array->head) )[0]);
     CDS_dynamicArray_destroy(array);
+    printf("%p \n", array);
+    printf("%p \n", array->head);
+    printf("%p \n", ((void**)(array->head) )[0]);
+    printf("%p \n", a);
+
 }
