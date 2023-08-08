@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include"CDS_DynamicArray.h"
+#define PRINT CDS_dynamicArray_test_print(array);
 
 int standart_int_sort_compare(void* data_1, void* data_2){
     int* a = (int*)data_1;
@@ -23,28 +24,34 @@ int main(){
 
     cdst_array* array = CDS_dynamicArray_init(5);
 
-    int* a = (int*)malloc(5 * sizeof(int));
-    a[0] = 2;
-    a[1] = 45;
-    a[2] = 75;
-    a[3] = 56;
-    a[4] = 32;
+    int* dizi = (int*)malloc(5 * sizeof(int));
+    dizi[0] = 2;
+    dizi[1] = 45;
+    dizi[2] = 75;
+    dizi[3] = 56;
+    dizi[4] = 32;
     for(int i = 0; i < 5; i++){
-        CDS_dynamicArray_addLast(array,&a[i]);
+        CDS_dynamicArray_addLast(array,&dizi[i]);
     }
 
     //------//
-    CDS_dynamicArray_test_print(array);
+    PRINT
 
-   /* int test_int_add = 10;
+    int* test_int_add = malloc(sizeof(int));
+    *test_int_add = 10;
     printf("==== addLast 10 ==== \n");
-    CDS_dynamicArray_addLast(array,&test_int_add);
+    CDS_dynamicArray_addLast(array,(void*)test_int_add);
 
     //------//
-    CDS_dynamicArray_test_print(array);
+    PRINT
+    //TODO fix sort error std_cmp void* to void**
+    printf("=====Sort=======\n");
+    CDS_dynamicArray_sort(array,standart_int_compare);
 
-    /*CDS_dynamicArray_sort(array,standart_int_compare);
+    //------//
+    PRINT
 
+/*
     printf("==== removeLast 10 ==== \n");
     CDS_dynamicArray_removeLast(array);
 
@@ -90,13 +97,14 @@ int main(){
     //-----//
     CDS_dynamicArray_test_print(array);
 */
-    printf("%p \n", array);
-    printf("%p \n", array->head);
-    printf("%p \n", ((void**)(array->head) )[0]);
+    printf("array                       %p \n", array);
+    printf("array->head                 %p \n", array->head);
+    printf("((void**)(array->head) )[0] %p \n", ((void**)(array->head) )[0]);
+    printf("--------CDS_DESTROY-----------\n");
     CDS_dynamicArray_destroy(array);
-    printf("%p \n", array);
-    printf("%p \n", array->head);
-    printf("%p \n", ((void**)(array->head) )[0]);
-    printf("%p \n", a);
+    printf("array                       %p \n", array);
+    printf("array->head                 %p \n", array->head);
+    printf("((void**)(array->head) )[0] %p \n", ((void**)(array->head) )[0]);
+    printf("dizi                        %p \n", dizi);
 
 }

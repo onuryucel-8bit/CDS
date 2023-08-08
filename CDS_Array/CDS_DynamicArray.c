@@ -367,6 +367,7 @@ void  CDS_dynamicArray_destroy(cdst_array* array){
     }
 
     free(array->head);
+
     free(array);
 
     array = NULL;
