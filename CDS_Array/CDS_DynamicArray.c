@@ -1,5 +1,11 @@
 #include "CDS_DynamicArray.h"
 
+#include "../MLeak/MLeak.h"
+
+// redefine allocator functions
+#define malloc(size) _malloc(size, __LINE__)
+#define free(ptr) _free(ptr, __LINE__)
+
 //----------STATIC--------------------//
 
 /**
@@ -88,7 +94,7 @@ static void sta_dynamic_array_shiftLeft(cdst_array* array,size_t index){
     }
 }
 
-cdst_array* CDS_dynamicArray_init(size_t capacity){
+cdst_array* CDS_dynamicArray_init(size_t capacity,enum cdsMemoryType type){
 
     cdst_array* newArray = malloc(sizeof(cdst_array));
 
@@ -112,6 +118,7 @@ cdst_array* CDS_dynamicArray_init(size_t capacity){
     newArray->capacity = capacity;
     newArray->index = 0;
     newArray->resize_amount = DEFAULT_RESIZE_AMOUNT;
+    newArray->type = type;
 
     return newArray;
 }
@@ -157,7 +164,7 @@ void CDS_dynamicArray_addLast(cdst_array* array,void* data){
     *
     *  let say
     *  array->index is pointing out of array right now
-    *  resize function will be realloc array->capacity + DEFAULT_RESIZE_AMOUNT or(not bitwise OR) array->resize_amount
+    *  resize function will be realloc (array->capacity + DEFAULT_RESIZE_AMOUNT) OR (array->resize_amount)
     *  amount of byte on heap
     *
     *  array->capac => 5
@@ -191,8 +198,14 @@ void CDS_dynamicArray_removeIndex(cdst_array* array,size_t index){
     //check error
     if(index >= array->index)return;
 
-    //delete
-    ((void**)array->head)[array->index] = NULL;
+    //free memory
+    if(array->type == CDS_HEAP_ALLOCATE){
+        free(( (void**)(array->head) )[array->index - 1]);
+
+    //For STACK
+    }else{
+        ( (void**)(array->head) )[array->index - 1] = NULL;
+    }
 
     //shift
     sta_dynamic_array_shiftLeft(array,index);
@@ -208,13 +221,18 @@ void CDS_dynamicArray_removeLast(cdst_array* array){
     //error check
     if(array == NULL || array->head == NULL)return;
 
-    //TODO free memory
+    //free memory
+    if(array->type == CDS_HEAP_ALLOCATE){
+        free(( (void**)(array->head) )[array->index - 1]);
 
-    //delete
-    free(( (void**)(array->head) )[array->index - 1]);
+    //For STACK
+    }else{
+        ( (void**)(array->head) )[array->index - 1] = NULL;
+    }
+
     array->index --;
 
-    //TODO rezise
+    //TODO dynamicArray:: resize for removeLast
     if(array->index == 0){
 
     }
@@ -305,6 +323,7 @@ void CDS_dynamicArray_test_print(cdst_array* array){
         printf("element %i ptr : %p \n",*element,(((int**)(array->head))[i]));
 
     }
+
     printf("*****\n");
 }
 
@@ -358,6 +377,10 @@ int CDS_dynamicArray_isEmpty(cdst_array* array){
     }
 
     return CDS_FALSE;
+}
+
+void CDS_dynamicArray_changeType(cdst_array* array,enum cdsMemoryType type){
+    array->type = type;
 }
 
 void  CDS_dynamicArray_destroy(cdst_array* array){

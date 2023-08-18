@@ -2,6 +2,8 @@
 #include"CDS_DynamicArray.h"
 #define PRINT CDS_dynamicArray_test_print(array);
 
+#include"../MLeak/MLeak.h"
+
 int standart_int_sort_compare(void* data_1, void* data_2){
     int* a = (int*)data_1;
     int* b = (int*)data_2;
@@ -22,7 +24,8 @@ int standart_int_compare(void* data_1, void* data_2){
 
 int main(){
 
-    cdst_array* array = CDS_dynamicArray_init(5);
+    cdst_array* array = CDS_dynamicArray_init(5,CDS_HEAP_ALLOCATE);
+
 
     int* dizi = (int*)malloc(5 * sizeof(int));
     dizi[0] = 2;
@@ -30,26 +33,30 @@ int main(){
     dizi[2] = 75;
     dizi[3] = 56;
     dizi[4] = 32;
+
+    //ADD LAST(INT ARRAY[5])
     for(int i = 0; i < 5; i++){
         CDS_dynamicArray_addLast(array,&dizi[i]);
     }
 
-    //------//
-    PRINT
 
-    int* test_int_add = malloc(sizeof(int));
-    *test_int_add = 10;
-    printf("==== addLast 10 ==== \n");
-    CDS_dynamicArray_addLast(array,(void*)test_int_add);
 
     //------//
-    PRINT
-    //TODO fix sort error std_cmp void* to void**
-    printf("=====Sort=======\n");
-    CDS_dynamicArray_sort(array,standart_int_compare);
+    //PRINT
+
+    //ADD LAST(INT 23);
+    int test_int_addLast = 23;
+    CDS_dynamicArray_addLast(array,&test_int_addLast);
 
     //------//
-    PRINT
+    //PRINT
+
+    //REMOVE LAST();
+    CDS_dynamicArray_removeLast(array);
+
+    //------//
+    //PRINT
+
 
 /*
     printf("==== removeLast 10 ==== \n");
@@ -97,6 +104,7 @@ int main(){
     //-----//
     CDS_dynamicArray_test_print(array);
 */
+
     printf("array                       %p \n", array);
     printf("array->head                 %p \n", array->head);
     printf("((void**)(array->head) )[0] %p \n", ((void**)(array->head) )[0]);
@@ -107,4 +115,5 @@ int main(){
     printf("((void**)(array->head) )[0] %p \n", ((void**)(array->head) )[0]);
     printf("dizi                        %p \n", dizi);
 
+    print_report();
 }
