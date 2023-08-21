@@ -1,4 +1,3 @@
-//tested without compare function 28.06.23
 #ifndef CDS_STACK_LL_H
 #define CDS_STACK_LL_H
 
@@ -38,10 +37,6 @@ void* CDS_stack_lil_top(cdst_stack_Holder* stack);
 int CDS_stack_lil_isEmpty(cdst_stack_Holder* stack);
 
 void CDS_StackLL_compare(cdst_stack_Holder* stack,cdst_stack_Holder* cmpStack,int compare(void* data1,void* data2));
-
-char CDS_StackLL_getType_char_Top(cdst_stack_Holder* stack);
-
-int CDS_StackLL_getType_int_Top(cdst_stack_Holder* stack);
 
 void CDS_stack_lil_destroy(cdst_stack_Holder* stack);
 

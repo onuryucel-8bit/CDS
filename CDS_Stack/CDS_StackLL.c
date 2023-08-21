@@ -170,20 +170,6 @@ int CDS_stack_lil_isEmpty(cdst_stack_Holder* stack){
 }
 
 /**
-*  returns top of stack in char format
-*/
-char CDS_StackLL_getType_char_Top(cdst_stack_Holder* stack){
-    return *(char*)(stack->top->data);
-}
-
-/**
-*  returns top of stack in int format
-*/
-int CDS_StackLL_getType_int_Top(cdst_stack_Holder* stack){
-    return *(int*)(stack->top->data);
-}
-
-/**
 *  frees stack and data
 */
 void CDS_stack_lil_destroy(cdst_stack_Holder* stack){

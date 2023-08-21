@@ -21,7 +21,7 @@ int standart_int_compare(void* data_1, void* data_2){
 
     return *a == *b;
 }
-/*
+
 int main(){
 
     cdst_array* array = CDS_dynamicArray_init(5,CDS_HEAP_ALLOCATE);
@@ -82,5 +82,5 @@ int main(){
 
 
 
-}*/
+}
 
