@@ -21,20 +21,9 @@ int standart_int_compare(void* data_1, void* data_2){
 
     return *a == *b;
 }
-
-int main(){
 /*
-    int test = 36;
-    void* heapDataPointer = &test;
-    void* arrayCell = &heapDataPointer;
-    void* array = &arrayCell;
+int main(){
 
-
-    printf("array           %p \n",array);
-    printf("arrayCell       %p \n",arrayCell);
-    printf("heapDataPointer %p \n",heapDataPointer);
-    printf("&test           %p \n",&test);
-*/
     cdst_array* array = CDS_dynamicArray_init(5,CDS_HEAP_ALLOCATE);
 
     printf("array head %p \n",array->head);
@@ -93,4 +82,5 @@ int main(){
 
 
 
-}
+}*/
+
