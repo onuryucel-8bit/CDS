@@ -1,11 +1,5 @@
 #include "CDS_DynamicArray.h"
 
-#include "../MLeak/MLeak.h"
-
-// redefine allocator functions
-#define malloc(size) _malloc(size, __LINE__)
-#define free(ptr) _free(ptr, __LINE__)
-
 //----------STATIC--------------------//
 
 /**
@@ -319,8 +313,10 @@ void* CDS_dynamicArray_findElement(cdst_array* array,void* findData,int compare(
 */
 void CDS_dynamicArray_test_print(cdst_array* array){
     for(int i = 0; i < array->index;i++){
+
         int* element = ((int**)(array->head))[i];
-        printf("element %i ptr : %p \n",*element,(((int**)(array->head))[i]));
+
+        printf("[%i] element %i ptr : %p \n",i,*element,(((int**)(array->head))[i])  );
 
     }
 
@@ -339,18 +335,24 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare(void* fdata,void* sdat
     if(array == NULL || array->head == NULL)return;
 
     void* temp = NULL;
+    void** tempHeap = NULL;
     size_t size_arr = array->index;
 
     for(size_t i = 0;i < size_arr - 1; i++){
 
         for(size_t j = 0; j < size_arr - i - 1; j++){
 
-            if(compare(((void**)(array->head) )[j] ,((void**)(array->head) )[j+1])){
+            if(array->type == CDS_STACK_ALLOCATE && compare(((void**)(array->head) )[j] ,((void**)(array->head) )[j+1])){
 
                 temp = ((void**)(array->head))[j];
                 ((void**)(array->head) )[j] = ((void**)(array->head) )[j+1];
                 ((void**)(array->head) )[j+1]= temp;
 
+            }else if(compare(  ((void***)(array->head))[j],  ((void***)(array->head))[j + 1]  ) ){
+
+                tempHeap = ((void***)(array->head))[j];
+                ((void***)(array->head) )[j] = ((void***)(array->head) )[j+1];
+                ((void***)(array->head) )[j+1]= tempHeap;
             }
 
         }//for j end
@@ -383,10 +385,24 @@ void CDS_dynamicArray_changeType(cdst_array* array,enum cdsMemoryType type){
     array->type = type;
 }
 
+void CDS_dynamicArray_clear(cdst_array* array){
+
+    if(array->type == CDS_STACK_ALLOCATE){
+        newArray->index = 0;
+    }
+}
+
 void  CDS_dynamicArray_destroy(cdst_array* array){
 
-    for(int i = 0; i < array->index; i++){
-        free(((void**)(array->head) )[i]);
+    if(array->type == CDS_STACK_ALLOCATE){
+        for(int i = 0; i < array->index; i++){
+            free(((void**)(array->head) )[i]);
+        }
+
+    }else{
+        for(int i = 0; i < array->index; i++){
+            free(((void***)(array->head) )[i]);
+        }
     }
 
     free(array->head);
@@ -395,5 +411,3 @@ void  CDS_dynamicArray_destroy(cdst_array* array){
 
     array = NULL;
 }
-
-

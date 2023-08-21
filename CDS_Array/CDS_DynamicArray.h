@@ -19,7 +19,7 @@ enum cdsMemoryType{
     CDS_STACK_ALLOCATE
 };
 
-//check realloc, malloc errors if(malloc(s) == null) return
+//TODO fix: destroy for heap
 
 typedef struct std_cds_DynamicArray cdst_array;
 
@@ -70,6 +70,8 @@ void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
 int CDS_dynamicArray_isEmpty(cdst_array* array);
 
 void CDS_dynamicArray_changeType(cdst_array* array,enum cdsMemoryType type);
+
+void CDS_dynamicArray_clear(cdst_array* array);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
