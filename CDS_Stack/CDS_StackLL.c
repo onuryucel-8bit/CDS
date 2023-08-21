@@ -21,7 +21,7 @@ static cdst_stack_Data* CDS_Stack_createNode(void* data){
 /**
     initiliaze stack
 */
-cdst_stack_Holder* CDS_StackLL_init(){
+cdst_stack_Holder* CDS_stack_lil_init(enum cdsMemoryType type){
 
      cdst_stack_Holder* stack = (cdst_stack_Holder*)malloc(sizeof(cdst_stack_Holder));
 
@@ -31,6 +31,7 @@ cdst_stack_Holder* CDS_StackLL_init(){
      }
 
      stack->top = NULL;
+     stack->type = type;
 
      return stack;
 
@@ -41,9 +42,8 @@ cdst_stack_Holder* CDS_StackLL_init(){
 /**
 
 */
-void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
+void CDS_stack_lil_push(cdst_stack_Holder* stack,void* data){
 
-///----------------------REMOVE----------------------------//
     if(stack == NULL)return;
 
     cdst_stack_Data* newNode = CDS_Stack_createNode(data);
@@ -55,9 +55,28 @@ void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
         return;
     }
 
+    /**
+    *  EXAMPLE STACK:
+    *
+    *  A->B->C
+    *
+    *  stack->top = A
+    *  newNode = D
+    */
+
+    //D->next = A;
     newNode->next = stack->top;
 
+    //stack->top = D;
     stack->top = newNode;
+
+    /**
+    *  AFTER PUSH();
+    *  D->A->B->C
+    *
+    *  stack->top = D
+    *
+    */
 
 
 }
@@ -68,14 +87,39 @@ void CDS_StackLL_push(cdst_stack_Holder* stack,void* data){
 *
 *  pops the top of the stack
 */
-void CDS_StackLL_pop(cdst_stack_Holder* stack){
+void CDS_stack_lil_pop(cdst_stack_Holder* stack){
 
     if(stack == NULL || stack->top == NULL)return;
 
+    /**
+    *  EXAMPLE STACK:
+    *
+    *  A->B->C
+    *
+    *  stack->top = A
+    *
+    */
+
+    //oldTop = A;
     cdst_stack_Data* oldTop = stack->top;
+    //stack->top = B;
     stack->top = oldTop->next;
 
-    free(oldTop);
+    if(stack->type == CDS_HEAP_ALLOCATE){
+        free(oldTop->data);
+    }else{
+        free(oldTop);
+    }
+
+    /**
+    *  AFTER POP():
+    *
+    *  B->C
+    *
+    *  stack->top = B
+    *
+    */
+
 
 }
 
@@ -110,7 +154,7 @@ void CDS_StackLL_compare(cdst_stack_Holder* stack,cdst_stack_Holder* cmpStack,in
 /**
 *  returns top of stack data
 */
-void* CDS_StackLL_top(cdst_stack_Holder* stack){
+void* CDS_stack_lil_top(cdst_stack_Holder* stack){
     return stack->top->data;
 }
 
@@ -118,7 +162,7 @@ void* CDS_StackLL_top(cdst_stack_Holder* stack){
 * if stack is null return 1
 * else 0
 */
-int CDS_StackLL_isEmpty(cdst_stack_Holder* stack){
+int CDS_stack_lil_isEmpty(cdst_stack_Holder* stack){
     if(stack->top == NULL){
         return 1;
     }
@@ -142,7 +186,7 @@ int CDS_StackLL_getType_int_Top(cdst_stack_Holder* stack){
 /**
 *  frees stack and data
 */
-void CDS_StackLL_destroy(cdst_stack_Holder* stack){
+void CDS_stack_lil_destroy(cdst_stack_Holder* stack){
 
     cdst_stack_Data* current = stack->top;
 

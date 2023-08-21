@@ -70,7 +70,7 @@ void infix_to_postfix(char* infix){
     int postIndex = 0;
 
     //init stack
-    cdst_stack_Holder* stack = CDS_StackLL_init();
+    cdst_stack_Holder* stack = CDS_stack_lil_init(CDS_STACK_ALLOCATE);
 
     //read infix string left to right
     for(int i = 0; i < size;i++){
@@ -110,23 +110,23 @@ void infix_to_postfix(char* infix){
         else if(isOperator(infix[i]) ){
              //printf("isOperator() = %i\n",i);
              //if stack is empty put operator in stack
-             if(CDS_StackLL_isEmpty(stack)){
-                 CDS_StackLL_push(stack,&infix[i]);
+             if(CDS_stack_lil_isEmpty(stack)){
+                 CDS_stack_lil_push(stack,&infix[i]);
 
              }
 
              else if(compare_precedence( *(char*)(stack->top->data) ,infix[i])){
 
-                 ///TODO use CDS_StackLL_getTop(); or make top* CDS_StackLl_pop();
+                 ///TODO use CDS_StackLL_getTop(); or make top* CDS_stack_lil_pop();
                  postfix[postIndex] = *(char*)(stack->top->data);
                  postIndex++;
-                 CDS_StackLL_pop(stack);
-                 CDS_StackLL_push(stack,&infix[i]);
+                 CDS_stack_lil_pop(stack);
+                 CDS_stack_lil_push(stack,&infix[i]);
 
              }
              //precedence Top < infix[i]
              else{
-                 CDS_StackLL_push(stack,&infix[i]);
+                 CDS_stack_lil_push(stack,&infix[i]);
              }
 
 
@@ -141,14 +141,14 @@ void infix_to_postfix(char* infix){
                 while(*(char*)(stack->top->data) != '('){
                     postfix[postIndex] = *(char*)(stack->top->data);
                     postIndex++;
-                    CDS_StackLL_pop(stack);
+                    CDS_stack_lil_pop(stack);
                 }
 
-                CDS_StackLL_pop(stack);
+                CDS_stack_lil_pop(stack);
 
             //if infix[i] == '('
             }else{
-                CDS_StackLL_push(stack,&infix[i]);
+                CDS_stack_lil_push(stack,&infix[i]);
             }
         }
 
@@ -157,12 +157,12 @@ void infix_to_postfix(char* infix){
     }//FOR END---
 
     //pop and put inside the postfix
-    while(CDS_StackLL_isEmpty(stack) != 1){
+    while(CDS_stack_lil_isEmpty(stack) != 1){
 
         postfix[postIndex] = *(char*)(stack->top->data);
         postIndex++;
 
-        CDS_StackLL_pop(stack);
+        CDS_stack_lil_pop(stack);
 
     }
 
@@ -172,5 +172,5 @@ void infix_to_postfix(char* infix){
     printf("%s",postfix);
 
     //frees stack
-    CDS_StackLL_destroy(stack);
+    CDS_stack_lil_destroy(stack);
 }

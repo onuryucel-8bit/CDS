@@ -1,0 +1,10 @@
+#ifndef ALLOCATION_ENUM_DATA_H
+#define ALLOCATION_ENUM_DATA_H
+
+enum cdsMemoryType{
+    CDS_HEAP_ALLOCATE,
+    CDS_STACK_ALLOCATE
+};
+
+#endif
+

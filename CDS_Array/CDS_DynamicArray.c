@@ -388,7 +388,7 @@ void CDS_dynamicArray_changeType(cdst_array* array,enum cdsMemoryType type){
 void CDS_dynamicArray_clear(cdst_array* array){
 
     if(array->type == CDS_STACK_ALLOCATE){
-        newArray->index = 0;
+        array->index = 0;
     }
 }
 

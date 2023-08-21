@@ -13,34 +13,34 @@ int isMatchingPair(char c,cdst_stack_Holder* stack){
 
 int bracket_Problem(char* str){
 
-   cdst_stack_Holder* stack = CDS_StackLL_init();
+   cdst_stack_Holder* stack = CDS_stack_lil_init(CDS_STACK_ALLOCATE);
 
    unsigned int size = strlen(str);
 
    for(int i = 0;i<size;i++){
 
         if(str[i] == '(' || str[i] == '[' || str[i] == '{'){
-            CDS_StackLL_push(stack,&str[i]);
+            CDS_stack_lil_push(stack,&str[i]);
         }
 
         if(str[i] == ')' || str[i] == ']' || str[i] == '}'){
-            if(CDS_StackLL_isEmpty(stack)){
+            if(CDS_stack_lil_isEmpty(stack)){
                 return 0;
             }
             else if(isMatchingPair(str[i],stack)){
-                CDS_StackLL_pop(stack);
+                CDS_stack_lil_pop(stack);
             }else{
                 return 0;
             }
         }
    }
 /*
-   while(!CDS_StackLL_isEmpty(stack)){
-        CDS_StackLL_pop(stack);
+   while(!CDS_stack_lil_isEmpty(stack)){
+        CDS_stack_lil_pop(stack);
    }
 */
 
-   CDS_StackLL_destroy(stack);
+   CDS_stack_lil_destroy(stack);
    return 1;
 }
 

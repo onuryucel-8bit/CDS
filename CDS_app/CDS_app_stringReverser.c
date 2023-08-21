@@ -11,7 +11,7 @@ void CDS_app_stringReverser_run(cdst_stack_Holder* stack,char* str,unsigned int 
     for(int i = 0; i < size; i++){
         char* c = malloc(sizeof(char));
         *c = str[i];
-        CDS_StackLL_push(stack,c);
+        CDS_stack_lil_push(stack,c);
     }
 
     //pop
@@ -21,7 +21,7 @@ void CDS_app_stringReverser_run(cdst_stack_Holder* stack,char* str,unsigned int 
         char c = *(char*)(stack->top->data);
         reverse_str[i] = c;
         //printf("%c \n", c);
-        CDS_StackLL_pop(stack);
+        CDS_stack_lil_pop(stack);
 
     }
     reverse_str[size] = '\0';

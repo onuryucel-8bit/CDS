@@ -14,10 +14,7 @@
 
 #define DEFAULT_RESIZE_AMOUNT 5
 
-enum cdsMemoryType{
-    CDS_HEAP_ALLOCATE,
-    CDS_STACK_ALLOCATE
-};
+#include"../CDS_generalData/allocationEnumData.h"
 
 //TODO fix: destroy for heap
 
