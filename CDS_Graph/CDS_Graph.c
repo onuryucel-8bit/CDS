@@ -19,7 +19,7 @@ cdst_graph_lil* CDS_graph_lil_init(){
 
     //create array with size of 5
     int size = 5;
-    cdst_array* new_adjaceny_array = CDS_dynamicArray_init(size);
+    cdst_array* new_adjaceny_array = CDS_dynamicArray_init(size,CDS_STACK_ALLOCATE);
 
     cdst_graph_lil* graph = (cdst_graph_lil*)malloc(sizeof(cdst_graph_lil));
 

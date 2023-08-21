@@ -14,9 +14,12 @@
 
 #define DEFAULT_RESIZE_AMOUNT 5
 
-//TODO !!! when data deleted free from memory
+enum cdsMemoryType{
+    CDS_HEAP_ALLOCATE,
+    CDS_STACK_ALLOCATE
+};
 
-//check realloc, malloc errors if(malloc(s) == null) return
+//TODO fix: destroy for heap
 
 typedef struct std_cds_DynamicArray cdst_array;
 
@@ -26,9 +29,10 @@ struct std_cds_DynamicArray{
     unsigned int index;
     unsigned int capacity;
     size_t resize_amount;
+    char type;
 };
 //,size_t resize_amount
-cdst_array* CDS_dynamicArray_init(size_t capacity);
+cdst_array* CDS_dynamicArray_init(size_t capacity,enum cdsMemoryType type);
 
 //----------------ADD----------------//
 
@@ -64,6 +68,10 @@ void  CDS_dynamicArray_sort(cdst_array* array,int compare( void* fdata, void* sd
 void CDS_dynamicArray_changeData(cdst_array* array,size_t index,void* data);
 
 int CDS_dynamicArray_isEmpty(cdst_array* array);
+
+void CDS_dynamicArray_changeType(cdst_array* array,enum cdsMemoryType type);
+
+void CDS_dynamicArray_clear(cdst_array* array);
 
 void  CDS_dynamicArray_destroy(cdst_array* dataPack);
 
