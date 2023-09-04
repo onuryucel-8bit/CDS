@@ -441,11 +441,11 @@ void CDS_bst_traversal_postOrder(cdst_binaryStree_Holder* tree){
 
 //BFS
 void CDS_bst_traversal_bfs(cdst_binaryStree_Holder* tree){
-    cdst_queue_Holder* queue = CDS_Queue_lil_init();
+    //cdst_queue_Holder* queue = CDS_Queue_lil_init();
 
     //code here
 
-    CDS_Queue_lil_destroy(queue);
+    //CDS_Queue_lil_destroy(queue);
 }
 
 /*

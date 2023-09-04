@@ -3,12 +3,10 @@
 
 #include"CDS_QueueLL.h"
 
-//core functions finished except compare 26.06.23
-
 //TODO add additional functions reverse,count...
 //TODO void CDS_Queue_lil_compare()
 
-cdst_queue_Holder* CDS_Queue_lil_init(){
+cdst_queue_Holder* CDS_Queue_lil_init(enum cdsMemoryType type){
     cdst_queue_Holder* newQueue = malloc(sizeof(cdst_queue_Holder));
 
     if(!newQueue){
@@ -16,6 +14,7 @@ cdst_queue_Holder* CDS_Queue_lil_init(){
     }
 
     newQueue->top = NULL;
+    newQueue->type = type;
 
     return newQueue;
 }
@@ -37,26 +36,32 @@ static cdst_queue_Data* queue_CreateNode(void* data){
 *  adding element to end of linked list
 *  head will be "top"
 */
-void CDS_Queue_lil_enQueue(cdst_queue_Holder* queue,void* data){
+void CDS_quel_add(cdst_queue_Holder* queue,void* data){
 
+    //create newnode
     cdst_queue_Data* newNode = queue_CreateNode(data);
 
+    //if queue is empty
     if(queue->top == NULL){
         queue->top = newNode;
         return;
     }
 
-    //a->b->c head queue is a
+    //ENQUEUE(d);
+    //a->b->c head of queue is a
+
     cdst_queue_Data* current = queue->top;
+
     while(current->next != NULL){
         current = current->next;
     }
 
+    //a->b->c->d
     current->next = newNode;
 
 }
 
-void CDS_Queue_lil_deQueue(cdst_queue_Holder* queue,void* data){
+void CDS_quel_remove(cdst_queue_Holder* queue){
     if(queue->top == NULL){
         return;
     }
@@ -80,26 +85,35 @@ void CDS_Queue_lil_compare(){
 *  if queue empty return 1
 *  else return 0
 */
-int CDS_Queue_lil_isEmpty(cdst_queue_Holder* queue){
+int CDS_quel_isEmpty(cdst_queue_Holder* queue){
 
     if(queue->top == NULL)return 1;
 
     return 0;
 }
 
+/**
+* returns first element of queue
+*/
+void* CDS_que_getFirst(cdst_queue_Holder* queue){
+    return queue->top;
+}
+
 void CDS_Queue_lil_destroy(cdst_queue_Holder* queue){
+    if (queue == NULL || queue->top == NULL) {
+        return;
+    }
 
     cdst_queue_Data* current = queue->top;
-    cdst_queue_Data* nextNode = current;
+    cdst_queue_Data* nextNode = NULL;
 
-    while(current->next != NULL){
+    while (current != NULL) {
         nextNode = current->next;
         free(current);
         current = nextNode;
     }
 
     free(queue);
-    queue->top = NULL;
 }
 
 #endif // CDS_QUEUE_H

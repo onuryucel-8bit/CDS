@@ -1,7 +1,7 @@
 #include"CDS_app_validBracketCheck.h"
 
 ///FIX STACK 09.06.23!
-
+/*
 int isMatchingPair(char c,cdst_stack_Holder* stack){
     if((c == ')' && CDS_StackLL_getType_char_Top(stack) == '(')  ||
        (c == ']' && CDS_StackLL_getType_char_Top(stack) == '[')  ||
@@ -34,13 +34,13 @@ int bracket_Problem(char* str){
             }
         }
    }
-/*
+
    while(!CDS_stack_lil_isEmpty(stack)){
         CDS_stack_lil_pop(stack);
    }
-*/
+
 
    CDS_stack_lil_destroy(stack);
    return 1;
 }
-
+*/
